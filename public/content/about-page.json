@@ -1,0 +1,21 @@
+{
+  "header": {
+    "title": "The AI Engineer in the Making"
+  },
+  "profile": {
+    "image": {
+      "src": "",
+      "alt": "",
+      "width": 0,
+      "height": 0
+    },
+    "title": "AI & Systems Engineer",
+    "actId": ""
+  },
+  "biography": "Sanradhya has built and experimented with intelligent systems that go beyond academic theory, focusing on real-time processing, structured ML design, and production-aware deployment.",
+  "button": {
+    "text": "Contact",
+    "href": "/contact"
+  },
+  "backgroundImage": ""
+}

@@ -1,0 +1,37 @@
+{
+  "header": {
+    "title": "Let’s Build Intelligent Systems Together"
+  },
+  "sectionHeader": {
+    "title": "Open to AI, Machine Learning, and cloud-native collaboration"
+  },
+  "contactInfo": [
+    {
+      "icon": "Phone",
+      "title": "Call Me At",
+      "content": "+91 8910605164"
+    },
+    {
+      "icon": "Mail",
+      "title": "Email Me At",
+      "content": "sanradhya2003@gmail.com"
+    },
+    {
+      "icon": "Share2",
+      "title": "Social Networks",
+      "socialLinks": [
+        {
+          "icon": "Facebook",
+          "href": "#",
+          "ariaLabel": "Facebook"
+        },
+        {
+          "icon": "Linkedin",
+          "href": "#",
+          "ariaLabel": "Linkedin"
+        }
+      ]
+    }
+  ],
+  "backgroundImage": "/images/innerbg.jpg"
+}

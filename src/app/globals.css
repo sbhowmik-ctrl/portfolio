@@ -1,0 +1,487 @@
+@import "tailwindcss";
+
+/* Ensure Tailwind v4 scans all app and component sources (fixes unstyled pages in some setups) */
+@source "../**/*.{js,ts,jsx,tsx}";
+
+@import "react-responsive-carousel/lib/styles/carousel.min.css";
+
+:root {
+  --background: #ffffff;
+  --foreground: #1F2937; /* Dark Gray - primary text */
+  /* Structured color palette */
+  --primary: #1F3C88; /* Royal Blue - buttons, links, active, key highlights */
+  --primary-hover: #183370;
+  --secondary: #4B0082; /* Deep Purple - hero, gradients, feature highlights */
+  --accent: #008080; /* Teal - CTA, hover, icons, interactive */
+  --accent-hover: #006666;
+  --accent-glow: rgba(0, 128, 128, 0.35);
+  --tertiary: #F9FAFB; /* Off-white - section backgrounds */
+  --quaternary: #4B5563; /* Medium Gray - secondary text */
+  --white: #FFFFFF;
+  --black: #0B0C10; /* Rich Black - footer, dark sections */
+  /* Design tokens */
+  --radius: 20px; /* 16-24px rounded corners */
+  --radius-sm: 16px;
+  --radius-lg: 24px;
+  --shadow-soft: 0 4px 14px rgba(31, 60, 136, 0.08);
+  --shadow-medium: 0 8px 24px rgba(31, 60, 136, 0.12);
+  --shadow-glow: 0 0 20px var(--accent-glow);
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #1F3C88 0%, #4B0082 100%);
+  --gradient-secondary: linear-gradient(135deg, #4B0082 0%, #008080 100%);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-tertiary: var(--tertiary);
+  --color-quaternary: var(--quaternary);
+  --color-white: var(--white);
+  --color-black: var(--black);
+  --font-sans: var(--font-suse);
+  --font-mono: var(--font-geist-mono);
+  --font-alice: var(--font-alice);
+  --radius: var(--radius);
+  --radius-sm: var(--radius-sm);
+  --radius-lg: var(--radius-lg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0B0C10;
+    --foreground: #F9FAFB;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-suse), Arial, Helvetica, sans-serif;
+}
+
+/* Readability: body text and paragraphs */
+.readable-text {
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+
+.readable-text-lg {
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+}
+
+/* Loading page animation */
+@keyframes loading-bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.loading-dot {
+  animation: loading-bounce 1.4s ease-in-out infinite both;
+}
+
+/* Loading overlay exit animation */
+.loading-overlay {
+  transition:
+    opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.loading-overlay--exiting {
+  opacity: 0;
+  transform: scale(0.98);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-overlay {
+    transition: opacity 0.25s ease-out;
+  }
+  .loading-overlay--exiting {
+    transform: none;
+  }
+}
+
+/* Glossy text effect - Royal Blue to Teal accent shimmer */
+.glossy-text {
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--color-primary) 45%,
+    var(--color-accent) 50%,
+    var(--color-primary) 55%,
+    var(--color-primary) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: glossy-shimmer 2.5s linear infinite;
+}
+
+@keyframes glossy-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Topbar text sequential animation - one at a time */
+@keyframes topbar-sequential {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  23% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  33.33% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  34% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+.topbar-text-container {
+  height: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.topbar-text-item {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: topbar-sequential 9s linear infinite;
+}
+
+.topbar-text-item:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.topbar-text-item:nth-child(2) {
+  animation-delay: 3s;
+}
+
+.topbar-text-item:nth-child(3) {
+  animation-delay: 6s;
+}
+
+/* Pulse animation for button */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+.pulse-ring-1 {
+  animation: pulse-ring 2s ease-out infinite;
+  animation-delay: 0s;
+}
+
+.pulse-ring-2 {
+  animation: pulse-ring 2s ease-out infinite;
+  animation-delay: 2s;
+}
+
+.pulse-ring-3 {
+  animation: pulse-ring 2s ease-out infinite;
+  animation-delay: 4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glossy-text {
+    animation: none;
+    color: var(--color-primary);
+    background: none;
+  }
+
+  .pulse-ring-1,
+  .pulse-ring-2,
+  .pulse-ring-3 {
+    animation: none;
+  }
+
+  .topbar-text-item {
+    animation: none;
+    position: static;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ========== Holographic effects ========== */
+@keyframes hologram-shimmer {
+  0% {
+    background-position: 200% 50%;
+  }
+  100% {
+    background-position: -200% 50%;
+  }
+}
+
+@keyframes hologram-border-flow {
+  0%,
+  100% {
+    --hologram-rotate: 0deg;
+  }
+  50% {
+    --hologram-rotate: 360deg;
+  }
+}
+
+@keyframes hologram-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Card / container: subtle holographic border and inner shine on hover */
+.holographic-card {
+  position: relative;
+  isolation: isolate;
+}
+.holographic-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 211, 238, 0.5) 0%,
+    rgba(139, 92, 246, 0.4) 25%,
+    rgba(99, 102, 241, 0.5) 50%,
+    rgba(20, 184, 166, 0.4) 75%,
+    rgba(34, 211, 238, 0.5) 100%
+  );
+  background-size: 300% 300%;
+  animation: hologram-shimmer 8s ease-in-out infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+.holographic-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    125deg,
+    transparent 0%,
+    rgba(34, 211, 238, 0.03) 25%,
+    rgba(139, 92, 246, 0.04) 50%,
+    rgba(20, 184, 166, 0.03) 75%,
+    transparent 100%
+  );
+  background-size: 200% 200%;
+  animation: hologram-shimmer 12s ease-in-out infinite reverse;
+  pointer-events: none;
+  z-index: 0;
+}
+.holographic-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Stronger border-only holographic effect (for hero / headers) */
+.holographic-border {
+  position: relative;
+}
+.holographic-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(34, 211, 238, 0.7),
+    rgba(139, 92, 246, 0.6),
+    rgba(99, 102, 241, 0.7),
+    rgba(20, 184, 166, 0.6),
+    rgba(34, 211, 238, 0.7)
+  );
+  background-size: 400% 100%;
+  animation: hologram-shimmer 6s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 0;
+}
+.holographic-border > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Subtle holographic background for section areas */
+.holographic-bg {
+  position: relative;
+  overflow: hidden;
+}
+.holographic-bg::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: radial-gradient(
+      ellipse 80% 50% at 20% 40%,
+      rgba(34, 211, 238, 0.06) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 80% 60%,
+      rgba(139, 92, 246, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 50% 60% at 50% 90%,
+      rgba(20, 184, 166, 0.04) 0%,
+      transparent 50%
+    );
+  background-size: 200% 200%;
+  animation: hologram-shimmer 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+.holographic-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Soft iridescent glow behind content */
+.holographic-glow {
+  position: relative;
+}
+.holographic-glow::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(34, 211, 238, 0.08) 0%,
+    rgba(139, 92, 246, 0.06) 40%,
+    transparent 70%
+  );
+  animation: hologram-glow-pulse 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .holographic-card::before,
+  .holographic-card::after,
+  .holographic-border::before,
+  .holographic-bg::before {
+    animation: none;
+  }
+  .holographic-glow::after {
+    animation: none;
+  }
+}
+
+/* Carousel specific styles */
+.carousel-root {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.carousel .slider-wrapper {
+  height: 100% !important;
+}
+
+.carousel .slider {
+  height: 100% !important;
+}
+
+.carousel .slide {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.carousel .slide img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}

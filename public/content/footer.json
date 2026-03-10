@@ -1,0 +1,25 @@
+{
+  "copyright": "Margaret Graham",
+  "socialLinks": [
+    {
+      "icon": "Facebook",
+      "href": "#",
+      "ariaLabel": "Facebook"
+    },
+    {
+      "icon": "Youtube",
+      "href": "#",
+      "ariaLabel": "YouTube"
+    },
+    {
+      "icon": "Instagram",
+      "href": "#",
+      "ariaLabel": "Instagram"
+    },
+    {
+      "icon": "MessageCircle",
+      "href": "#",
+      "ariaLabel": "WhatsApp"
+    }
+  ]
+}

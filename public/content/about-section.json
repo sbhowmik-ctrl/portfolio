@@ -1,0 +1,15 @@
+{
+  "title": "About",
+  "name": "Sanradhya Bhowmik",
+  "subtitle": "AI & Systems Engineer",
+  "description": "Sanradhya works across data, models, and infrastructure to build intelligent systems that are explainable, observable, and deployable.",
+  "actId": "",
+  "image": {
+    "src": "",
+    "alt": ""
+  },
+  "button": {
+    "text": "Contact",
+    "href": "/contact"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "header": {
+    "title": "Ontario Court Transcriptionist"
+  },
+  "contactInfo": [
+    {
+      "icon": "Phone",
+      "title": "Call Us",
+      "content": "+1 (855) 443-2748"
+    },
+    {
+      "icon": "Mail",
+      "title": "Email Us",
+      "content": "mgraham@actontario.ca"
+    },
+    {
+      "icon": "Share2",
+      "title": "Social Networks",
+      "socialLinks": [
+        {
+          "icon": "Facebook",
+          "href": "https://www.facebook.com/VideoplusTranscriptionServices/",
+          "ariaLabel": "Facebook"
+        },
+        {
+          "icon": "Linkedin",
+          "href": "https://www.linkedin.com/company/videoplus-transcription-services/posts/?feedView=all",
+          "ariaLabel": "Linkedin"
+        }
+      ]
+    }
+  ],
+  "backgroundImage": "/images/innerbg.jpg"
+}
