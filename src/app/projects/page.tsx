@@ -123,15 +123,15 @@ function ProjectImagePanel({
         className="sr-only"
         onError={() => setImageFailed(true)}
       />
-      <span className="relative z-10 self-start rounded bg-slate-900/80 px-2.5 py-1 text-xs font-medium uppercase tracking-wider text-cyan-300">
+      <span className="relative z-10 self-start rounded-lg border border-cyan-400/25 bg-slate-900/90 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-300 shadow-lg">
         {tag}
       </span>
       {!useImage && (
-        <div className="absolute inset-0 flex items-center justify-center opacity-30">
-          <div className="h-24 w-24 rounded-full border-2 border-cyan-400/50 bg-cyan-500/10" />
+        <div className="absolute inset-0 flex items-center justify-center opacity-25">
+          <div className="h-24 w-24 rounded-full border-2 border-cyan-400/40 bg-cyan-500/10" />
         </div>
       )}
-      <div className="absolute inset-0 bg-slate-900/30" aria-hidden />
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/20 to-transparent" aria-hidden />
     </div>
   );
 }
@@ -150,7 +150,7 @@ function ImagePlaceholderCard({
 
   return (
     <div
-      className={`relative flex min-h-[280px] flex-col justify-between overflow-hidden rounded-2xl border border-cyan-500/30 bg-cover bg-center p-4 md:min-h-[320px] ${!useImage ? gradient : ""}`}
+      className={`relative flex min-h-[280px] flex-col justify-between overflow-hidden rounded-2xl border border-cyan-500/30 bg-cover bg-center p-4 shadow-[0_0_24px_rgba(6,182,212,0.06)] md:min-h-[320px] ${!useImage ? gradient : ""}`}
       style={
         useImage
           ? {
@@ -168,14 +168,15 @@ function ImagePlaceholderCard({
           onError={() => setImageFailed(true)}
         />
       )}
-      <span className="relative z-10 self-start rounded bg-slate-900/80 px-2.5 py-1 text-xs font-medium uppercase tracking-wider text-cyan-300">
+      <span className="relative z-10 self-start rounded-lg border border-cyan-400/25 bg-slate-900/90 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-300 shadow-lg">
         {tag}
       </span>
       {!useImage && (
-        <div className="absolute inset-0 flex items-center justify-center opacity-30">
-          <div className="h-24 w-24 rounded-full border-2 border-cyan-400/50 bg-cyan-500/10" />
+        <div className="absolute inset-0 flex items-center justify-center opacity-25">
+          <div className="h-24 w-24 rounded-full border-2 border-cyan-400/40 bg-cyan-500/10" />
         </div>
       )}
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" aria-hidden />
     </div>
   );
 }
@@ -193,14 +194,16 @@ function ProjectContentCard({
   const MetricsIcon = project.metricsIcon;
 
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-900/80 p-5 md:p-6">
-      <h3 className="text-lg font-semibold text-slate-50 md:text-xl">
-        {project.name}
-      </h3>
-      <p className="readable-text mt-2 text-sm text-slate-300">
+    <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-900/90 p-5 shadow-[0_0_24px_rgba(6,182,212,0.05)] transition-shadow hover:shadow-[0_0_36px_rgba(6,182,212,0.1)] md:p-6">
+      <div className="border-l-2 border-cyan-500/50 pl-3">
+        <h3 className="text-lg font-bold text-slate-50 md:text-xl">
+          {project.name}
+        </h3>
+      </div>
+      <p className="readable-text mt-3 text-sm leading-relaxed text-slate-300">
         {project.description}
       </p>
-      <div className="mt-4 space-y-2 text-sm text-slate-200">
+      <div className="mt-4 space-y-2.5 rounded-xl bg-slate-800/60 py-2.5 pl-3 pr-3 text-sm text-slate-200">
         <div className="flex items-center gap-2">
           <KeyTechsIcon className="h-4 w-4 shrink-0 text-cyan-400" aria-hidden />
           <span>{project.keyTechs}</span>
@@ -215,7 +218,7 @@ function ProjectContentCard({
         <button
           type="button"
           onClick={onToggle}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-cyan-500 px-4 py-2 text-sm font-medium text-slate-950 transition-colors hover:bg-cyan-400"
+          className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 px-4 py-2.5 text-sm font-semibold text-slate-950 shadow-[0_4px_14px_rgba(6,182,212,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(6,182,212,0.45)]"
         >
           {isOpen ? "Hide Details" : "View Case Study"}
           <span aria-hidden>→</span>
@@ -223,7 +226,7 @@ function ProjectContentCard({
         <button
           type="button"
           onClick={onToggle}
-          className="inline-flex items-center rounded-lg border border-cyan-500/60 bg-transparent px-4 py-2 text-sm font-medium text-slate-200 transition-colors hover:border-cyan-400 hover:bg-slate-800/60"
+          className="inline-flex items-center rounded-xl border border-cyan-500/50 bg-slate-800/40 px-4 py-2.5 text-sm font-medium text-slate-200 transition-colors hover:border-cyan-400 hover:bg-cyan-500/10 hover:text-cyan-300"
         >
           Tech Stack
         </button>
@@ -238,7 +241,7 @@ function ProjectContentCard({
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <div className="mt-4 rounded-xl border border-slate-700 bg-slate-800/80 px-4 py-3">
+            <div className="mt-4 rounded-xl border border-cyan-500/20 bg-slate-800/80 px-4 py-3">
               <p className="text-xs font-semibold uppercase tracking-wider text-cyan-400">
                 Full tech stack
               </p>
@@ -280,7 +283,7 @@ function EmptyCategoryState({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="relative overflow-hidden rounded-2xl border border-cyan-500/20 bg-slate-900/60 px-6 py-12 text-center md:px-10 md:py-16"
+      className="relative overflow-hidden rounded-2xl border border-cyan-500/20 bg-slate-900/65 px-6 py-12 text-center md:px-10 md:py-16"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent opacity-80" aria-hidden />
       <div className="relative">
@@ -289,8 +292,26 @@ function EmptyCategoryState({
         </span>
         <div className="mt-6 flex justify-center">
           {copy.icon === "sparkles" ? (
-            <div className="rounded-2xl border border-cyan-500/30 bg-slate-800/80 p-5">
-              <Sparkles className="h-12 w-12 text-cyan-400" aria-hidden />
+            <div style={{ perspective: "400px", transformStyle: "preserve-3d" }}>
+              <motion.div
+                className="relative rounded-2xl border border-cyan-500/30 bg-slate-800/80 p-5"
+                style={{
+                  transformStyle: "preserve-3d",
+                  boxShadow:
+                    "0 12px 40px rgba(6, 182, 212, 0.22), 0 0 0 1px rgba(6, 182, 212, 0.15), inset 0 1px 0 rgba(255,255,255,0.08)",
+                }}
+                animate={{
+                  rotateY: [-14, 14, -14],
+                  rotateX: [6, -4, 6],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                <Sparkles className="h-12 w-12 text-cyan-400" aria-hidden />
+              </motion.div>
             </div>
           ) : (
             <div className="rounded-2xl border border-slate-600/50 bg-slate-800/60 p-5">
@@ -334,21 +355,26 @@ export default function ProjectsPage() {
   const hasAnyProjects = showSummarizer || showDeepfake || showSentiment;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-100">
+    <div className="relative min-h-screen overflow-hidden bg-slate-950/90 text-slate-100">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 opacity-[0.05] [background-image:radial-gradient(circle,rgba(148,163,184,0.15)_1px,transparent_1px)] [background-size:24px_24px]" />
-        <div className="absolute -left-32 top-0 h-80 w-80 rounded-full bg-cyan-500/10 blur-3xl" />
-        <div className="absolute -right-32 top-1/3 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
+        <div className="absolute inset-0 opacity-[0.05] [background-image:radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.07)_0%,transparent_50%)]" />
+        <div className="absolute inset-0 opacity-[0.04] [background-image:linear-gradient(to_right,rgba(148,163,184,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.06)_1px,transparent_1px)] [background-size:48px_48px]" />
+        <div className="absolute -left-40 top-0 h-96 w-96 rounded-full bg-cyan-500/12 blur-3xl" />
+        <div className="absolute -right-40 top-1/4 h-80 w-80 rounded-full bg-violet-500/10 blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-teal-500/8 blur-3xl" />
       </div>
 
-      <header className="relative border-b border-slate-800 bg-slate-950/95">
+      <header className="relative border-b border-slate-800/85 bg-slate-950/90 backdrop-blur-sm">
         <div className="mx-auto max-w-6xl px-4 py-8 md:py-10">
-          <h1 className="text-3xl font-semibold tracking-tight text-slate-50 md:text-4xl">
-            Advanced AI &amp; <span className="text-cyan-400">ML Portfolio</span>
+          <span className="inline-block rounded-full border border-cyan-500/35 bg-cyan-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-400">
+            Portfolio
+          </span>
+          <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-50 md:text-4xl">
+            Advanced AI &amp; <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">ML Portfolio</span>
           </h1>
-          <p className="readable-text mt-3 max-w-2xl text-base text-slate-300">
-            Showcasing research-driven implementations in NLP, Computer Vision, and Generative AI.
-            Exploring the intersection of deep learning and human-centric systems.
+          <p className="readable-text mt-3 max-w-2xl text-base text-slate-400">
+            Research-driven implementations in NLP, Computer Vision, and Generative AI.
+            Deep learning meets human-centric systems.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
             {filters.map((f) => (
@@ -356,10 +382,10 @@ export default function ProjectsPage() {
                 key={f.id}
                 type="button"
                 onClick={() => setActiveFilter(f.id)}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                className={`rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
                   activeFilter === f.id
-                    ? "bg-cyan-500 text-slate-950"
-                    : "border border-cyan-500/50 bg-transparent text-slate-200 hover:border-cyan-400 hover:bg-slate-800/60"
+                    ? "bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 shadow-[0_4px_14px_rgba(6,182,212,0.35)]"
+                    : "border border-slate-600/90 bg-slate-800/50 text-slate-300 hover:border-cyan-500/40 hover:bg-slate-800/70 hover:text-cyan-300"
                 }`}
               >
                 {f.label}
@@ -373,11 +399,12 @@ export default function ProjectsPage() {
         {/* Row 1: AI Text Summarizer - full width with image left, content right */}
         {showSummarizer && (
           <motion.section
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8"
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-10"
           >
-            <div className="overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-900/80 md:flex">
+            <div className="overflow-hidden rounded-3xl border border-cyan-500/30 bg-slate-900/75 shadow-[0_0_32px_rgba(6,182,212,0.06)] md:flex">
               <ProjectImagePanel
                 tag={summarizer.tag}
                 imageSrc="/images/nlp-system.png"
@@ -401,12 +428,13 @@ export default function ProjectsPage() {
         {/* Row 2: Deepfake – when Computer Vision only: image + content; when All: content | image */}
         {showRow2 && (
           <motion.section
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8"
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-10"
           >
             {showDeepfake && !isAllFilter ? (
-              <div className="overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-900/80 md:flex">
+              <div className="overflow-hidden rounded-3xl border border-cyan-500/40 bg-slate-900/70 shadow-[0_0_40px_rgba(6,182,212,0.08)] md:flex">
                 <ProjectImagePanel
                   tag={deepfake.tag}
                   imageSrc="/images/deepfake-detection.png"
@@ -427,15 +455,17 @@ export default function ProjectsPage() {
             ) : (
               <div className="grid gap-6 md:grid-cols-2">
                 {showDeepfake && (
-                  <ProjectContentCard
-                    project={deepfake}
+                  <div className="rounded-3xl border border-cyan-500/30 bg-slate-900/60 shadow-[0_0_24px_rgba(6,182,212,0.05)]">
+                    <ProjectContentCard
+                      project={deepfake}
                     isOpen={openId === deepfake.id}
                     onToggle={() =>
                       setOpenId((prev) =>
                         prev === deepfake.id ? null : deepfake.id
                       )
                     }
-                  />
+                    />
+                  </div>
                 )}
                 {isAllFilter && (
                   <ImagePlaceholderCard
@@ -452,12 +482,13 @@ export default function ProjectsPage() {
         {/* Row 3: Sentiment – when Deep Learning only: image + content; when All: image | content */}
         {showRow3 && (
           <motion.section
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8"
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-10"
           >
             {showSentiment && !isAllFilter ? (
-              <div className="overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-900/80 md:flex">
+              <div className="overflow-hidden rounded-3xl border border-cyan-500/30 bg-slate-900/75 shadow-[0_0_32px_rgba(6,182,212,0.06)] md:flex">
                 <ProjectImagePanel
                   tag={sentiment.tag}
                   imageSrc="/images/conversational-ai.png"
@@ -485,15 +516,17 @@ export default function ProjectsPage() {
                   />
                 )}
                 {showSentiment && (
-                  <ProjectContentCard
-                    project={sentiment}
-                    isOpen={openId === sentiment.id}
-                    onToggle={() =>
-                      setOpenId((prev) =>
-                        prev === sentiment.id ? null : sentiment.id
-                      )
-                    }
-                  />
+                  <div className="rounded-3xl border border-cyan-500/30 bg-slate-900/60 shadow-[0_0_24px_rgba(6,182,212,0.05)]">
+                    <ProjectContentCard
+                      project={sentiment}
+                      isOpen={openId === sentiment.id}
+                      onToggle={() =>
+                        setOpenId((prev) =>
+                          prev === sentiment.id ? null : sentiment.id
+                        )
+                      }
+                    />
+                  </div>
                 )}
               </div>
             )}

@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
       sendMail1(
         confirmationEmail,
         email,
-        "Thank You for Your Contact - Margaret Graham Court Transcription Services"
+        "Thank you for your enquiry - Sanradhya Bhowmik"
       );
 
       // Send notification email to admin

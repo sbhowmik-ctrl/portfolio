@@ -2,7 +2,7 @@ import ReachOutSection from "@/app/components/ReachOutSection";
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white/95">
       {/* Page Header - Deep Purple → Royal Blue gradient */}
       <div className="py-6" style={{ background: "linear-gradient(135deg, #4B0082 0%, #1F3C88 100%)" }}>
         <div className="mx-auto max-w-7xl w-full px-4">

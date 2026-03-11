@@ -1,11 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Phone, Mail, Clock, LucideIcon } from "lucide-react";
 import { getPublicJsonClient } from "@/lib/publicJsonClient";
+import {
+  PhoneIcon3D,
+  MailIcon3D,
+  ClockIcon3D,
+  Icon3DWrapper,
+} from "@/app/components/ContactIcons3D";
 
 interface ContactCardProps {
-  icon: LucideIcon;
+  icon3D: React.ComponentType<{ className?: string }>;
   title: string;
   content: string;
   href: string;
@@ -23,7 +28,7 @@ type ReachOutContent = {
   subtitle: string;
 };
 
-function ContactCard({ icon: Icon, title, content, href }: ContactCardProps) {
+function ContactCard({ icon3D: Icon3D, title, content, href }: ContactCardProps) {
   return (
     <a
       className="block p-4 sm:p-6 rounded-[20px] bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/15 hover:border-[#008080]/50 hover:scale-102 transition-all duration-300 ease-out shadow-[0_4px_14px_rgba(31,60,136,0.12)]"
@@ -34,7 +39,9 @@ function ContactCard({ icon: Icon, title, content, href }: ContactCardProps) {
       }}
     >
       <div className="flex flex-col">
-        <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-white mb-3 sm:mb-4" />
+        <Icon3DWrapper className="mb-3 sm:mb-4 inline-flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl border border-cyan-500/30 bg-cyan-500/10">
+          <Icon3D className="w-6 h-6 sm:w-8 sm:h-8 text-cyan-400" />
+        </Icon3DWrapper>
         <div className="text-white text-xs sm:text-sm font-semibold mb-2 leading-tight">
           {title}
         </div>
@@ -72,19 +79,19 @@ export default function ReachOutSection() {
 
   const contactMethods: ContactCardProps[] = [
     {
-      icon: Phone,
+      icon3D: PhoneIcon3D,
       title: "CALL",
       content: links.phone,
       href: links.phoneHref,
     },
     {
-      icon: Mail,
+      icon3D: MailIcon3D,
       title: "EMAIL",
       content: links.email,
       href: links.emailHref,
     },
     {
-      icon: Clock,
+      icon3D: ClockIcon3D,
       title: "COLLABORATE",
       content: "AI, cloud, or systems projects",
       href: "/contact",
@@ -107,7 +114,7 @@ export default function ReachOutSection() {
           {contactMethods.map((method, index) => (
             <ContactCard
               key={index}
-              icon={method.icon}
+              icon3D={method.icon3D}
               title={method.title}
               content={method.content}
               href={method.href}

@@ -5,6 +5,7 @@ import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import LoadingOverlay from "@/app/components/LoadingOverlay";
+import CursorParallaxBackground from "@/app/components/CursorParallaxBackground";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -44,11 +45,19 @@ export default function RootLayout({
       <body
         className={`${geistMono.variable} ${suse.variable} ${alice.variable} ${playfair.variable} antialiased`}
       >
-        <LoadingOverlay />
-        <Navbar />
-        {children}
-        <Toaster position="top-right" richColors />
-        <Footer />
+        <CursorParallaxBackground />
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
+        <div className="relative z-10">
+          <LoadingOverlay />
+          <Navbar />
+          <div id="main-content" role="main" tabIndex={-1} className="min-h-screen">
+            {children}
+          </div>
+          <Toaster position="top-right" richColors />
+          <Footer />
+        </div>
       </body>
     </html>
   );

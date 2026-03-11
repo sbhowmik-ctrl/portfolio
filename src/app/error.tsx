@@ -14,7 +14,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-slate-950 px-4 text-slate-100">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-slate-950/90 px-4 text-slate-100">
       <h1 className="text-xl font-semibold text-slate-50">Something went wrong</h1>
       <p className="mt-2 max-w-md text-center text-sm text-slate-400">
         The site couldn’t load properly. Try refreshing the page.

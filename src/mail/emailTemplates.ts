@@ -1,8 +1,12 @@
 // Email template constants
-const BUSINESS_NAME = "Margaret Graham";
-const PERSON_NAME = "Margaret Graham";
-const CONTACT_PHONE = "+1 (855) 443-2748";
-const CONTACT_ADDRESS = "Serving legal professionals across Ontario";
+const BUSINESS_NAME = "Sanradhya Bhowmik";
+const PERSON_NAME = "Sanradhya Bhowmik";
+const CONTACT_PHONE = "+91 8910605164";
+const CONTACT_ADDRESS = "Your AI solutions";
+
+// Contact form (portfolio) constants
+const CONTACT_FORM_NAME = "Sanradhya Bhowmik";
+const CONTACT_FORM_PHONE = "+91 8910605164";
 
 interface ProceedingDate {
   date?: string;
@@ -136,10 +140,10 @@ export const getContactConfirmationEmail = (fullName: string, comments?: string)
           Dear ${fullName},
         </p>
         <p style="margin: 0 0 20px 0; color: #374151; font-size: 15px; line-height: 1.6;">
-          Thank you for reaching out to ${BUSINESS_NAME}! I have received your message and will review it carefully. I typically respond within 24-48 hours during business days.
+          Thank you for reaching out to ${CONTACT_FORM_NAME}! I have received your message and will review it carefully. I typically respond within 24-48 hours.
         </p>
         <p style="margin: 0; color: #374151; font-size: 15px; line-height: 1.6;">
-          If your inquiry is urgent, please feel free to call me directly at ${CONTACT_PHONE}.
+          If your inquiry is urgent, please feel free to call me directly at ${CONTACT_FORM_PHONE}.
         </p>
       </div>
       
@@ -148,7 +152,7 @@ export const getContactConfirmationEmail = (fullName: string, comments?: string)
           Best regards,
         </p>
         <p style="margin: 0; color: #075985; font-size: 15px; font-weight: 500;">
-          ${PERSON_NAME}
+          ${CONTACT_FORM_NAME}
         </p>
       </div>
     </div>

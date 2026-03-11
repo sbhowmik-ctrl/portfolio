@@ -142,7 +142,7 @@ export default function OrderTranscriptPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white/95">
       {/* Page Header - Deep Purple → Royal Blue gradient */}
       <div
         className="py-6"
@@ -174,8 +174,8 @@ export default function OrderTranscriptPage() {
             <div className="lg:col-span-1">
               <div className="flex flex-col items-center space-y-6">
                 <Image
-                  src="/images/Margaret-Graham-Photo.jpg"
-                  alt="Margaret Graham"
+                  src="/images/Sanradhya-Bhowmik-Photo.jpg"
+                  alt="Sanradhya Bhowmik"
                   width={300}
                   height={300}
                   className="rounded-lg shadow-lg"

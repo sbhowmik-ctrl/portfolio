@@ -72,16 +72,16 @@ const infrastructureItems = [
 
 export default function AboutPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-100">
-      {/* Subtle background */}
+    <div className="relative min-h-screen overflow-hidden bg-slate-950/90 text-slate-100">
+      {/* Subtle background - softer tones */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(to_right,rgba(148,163,184,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.2)_1px,transparent_1px)] [background-size:64px_64px]" />
-        <div className="absolute -left-32 top-0 h-80 w-80 rounded-full bg-cyan-500/10 blur-3xl" />
-        <div className="absolute -right-32 top-1/3 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
+        <div className="absolute inset-0 opacity-[0.04] [background-image:linear-gradient(to_right,rgba(148,163,184,0.15)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.15)_1px,transparent_1px)] [background-size:64px_64px]" />
+        <div className="absolute -left-32 top-0 h-80 w-80 rounded-full bg-cyan-500/8 blur-3xl" />
+        <div className="absolute -right-32 top-1/3 h-72 w-72 rounded-full bg-violet-500/8 blur-3xl" />
       </div>
 
       {/* Page header */}
-      <header className="relative border-b border-slate-800 bg-slate-950/95">
+      <header className="relative border-b border-slate-800/90 bg-slate-950/95 backdrop-blur-sm">
         <div className="mx-auto max-w-6xl px-4 py-8 md:py-10">
           <h1 className="text-3xl font-semibold tracking-tight text-slate-50 md:text-4xl">
             The AI Engineer in the Making
@@ -116,7 +116,7 @@ export default function AboutPage() {
             {featuredProjects.map((project, i) => (
               <motion.article
                 key={project.title}
-                className="group overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/60 shadow-lg transition-colors hover:border-slate-700"
+                className="group overflow-hidden rounded-2xl border border-slate-700/80 bg-slate-900/70 shadow-lg transition-colors hover:border-cyan-500/20 hover:shadow-[0_0_24px_rgba(6,182,212,0.06)]"
                 variants={sectionVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -143,7 +143,7 @@ export default function AboutPage() {
                   }
                 />
                 <div className="p-5 md:p-6">
-                  <span className="inline-block rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-medium text-emerald-300">
+                  <span className="inline-block rounded-full border border-cyan-500/30 bg-cyan-500/15 px-3 py-1 text-xs font-medium text-cyan-300">
                     {project.tag}
                   </span>
                   <h3 className="mt-3 text-lg font-semibold text-slate-50">
@@ -168,60 +168,89 @@ export default function AboutPage() {
 
         {/* Technical Foundations & Production */}
         <motion.section
-          className="mt-16 space-y-8 md:mt-20"
+          className="mt-16 md:mt-20"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          <h2 className="text-2xl font-semibold tracking-tight text-slate-50 md:text-3xl">
-            Technical Foundations &amp; Production
-          </h2>
+          <div className="relative overflow-hidden rounded-3xl border border-cyan-500/25 bg-gradient-to-br from-slate-900/85 to-slate-900/50 p-6 shadow-[0_0_30px_rgba(6,182,212,0.06)] md:p-8">
+            {/* Top accent */}
+            <div className="absolute left-0 right-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent" aria-hidden />
 
-          <div className="grid gap-10 md:grid-cols-2">
-            {/* Core Technologies */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Code2 className="h-5 w-5 text-cyan-400" aria-hidden />
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-200">
-                  Core Technologies
-                </h3>
-              </div>
-              <div className="space-y-3">
-                {coreTechItems.map((item) => (
-                  <div
-                    key={item.title}
-                    className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 transition-colors hover:border-slate-700"
-                  >
-                    <h4 className="font-semibold text-slate-50">{item.title}</h4>
-                    <p className="readable-text mt-1 text-sm text-slate-400">
-                      {item.description}
-                    </p>
-                  </div>
-                ))}
+            <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <span className="inline-block rounded-full border border-cyan-500/35 bg-cyan-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-400">
+                  Expertise
+                </span>
+                <h2 className="mt-3 text-2xl font-bold tracking-tight text-slate-50 md:text-3xl">
+                  Technical Foundations &amp; Production
+                </h2>
+                <p className="mt-2 max-w-xl text-sm text-slate-400">
+                  Core technologies and infrastructure that power production-ready systems.
+                </p>
               </div>
             </div>
 
-            {/* Infrastructure */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Database className="h-5 w-5 text-cyan-400" aria-hidden />
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-200">
-                  Infrastructure
-                </h3>
-              </div>
-              <div className="space-y-3">
-                {infrastructureItems.map((item) => (
-                  <div
-                    key={item.title}
-                    className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 transition-colors hover:border-slate-700"
-                  >
-                    <h4 className="font-semibold text-slate-50">{item.title}</h4>
-                    <p className="readable-text mt-1 text-sm text-slate-400">
-                      {item.description}
-                    </p>
+            <div className="grid gap-8 md:grid-cols-2">
+              {/* Core Technologies */}
+              <div className="group/col relative">
+                <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-cyan-500/15 to-transparent opacity-0 transition-opacity group-hover/col:opacity-100" aria-hidden />
+                <div className="relative rounded-2xl border border-slate-700/70 bg-slate-800/55 p-5 transition-colors hover:border-cyan-500/25 md:p-6">
+                  <div className="mb-5 flex items-center gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-500/35 bg-cyan-500/10 text-cyan-400">
+                      <Code2 className="h-6 w-6" aria-hidden />
+                    </div>
+                    <h3 className="text-base font-bold uppercase tracking-wider text-slate-100">
+                      Core Technologies
+                    </h3>
                   </div>
-                ))}
+                  <div className="space-y-3">
+                    {coreTechItems.map((item) => (
+                      <div
+                        key={item.title}
+                        className="rounded-xl border-l-2 border-cyan-500/45 bg-slate-900/50 py-3.5 pl-4 pr-4 transition-colors hover:border-cyan-400/90 hover:bg-slate-800/60"
+                      >
+                        <h4 className="text-sm font-semibold text-slate-100 md:text-base">
+                          {item.title}
+                        </h4>
+                        <p className="readable-text mt-1.5 text-sm text-slate-400">
+                          {item.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Infrastructure */}
+              <div className="group/col relative">
+                <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-teal-500/15 to-transparent opacity-0 transition-opacity group-hover/col:opacity-100" aria-hidden />
+                <div className="relative rounded-2xl border border-slate-700/70 bg-slate-800/55 p-5 transition-colors hover:border-teal-500/25 md:p-6">
+                  <div className="mb-5 flex items-center gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-teal-500/35 bg-teal-500/10 text-teal-400">
+                      <Database className="h-6 w-6" aria-hidden />
+                    </div>
+                    <h3 className="text-base font-bold uppercase tracking-wider text-slate-100">
+                      Infrastructure
+                    </h3>
+                  </div>
+                  <div className="space-y-3">
+                    {infrastructureItems.map((item) => (
+                      <div
+                        key={item.title}
+                        className="rounded-xl border-l-2 border-teal-500/45 bg-slate-900/50 py-3.5 pl-4 pr-4 transition-colors hover:border-teal-400/90 hover:bg-slate-800/60"
+                      >
+                        <h4 className="text-sm font-semibold text-slate-100 md:text-base">
+                          {item.title}
+                        </h4>
+                        <p className="readable-text mt-1.5 text-sm text-slate-400">
+                          {item.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
