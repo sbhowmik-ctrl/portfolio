@@ -52,6 +52,7 @@ const sendMail2 = (
   htmlContent: string,
   receiverEmail: string,
   subject: string = "Mail From Sanradhya Bhowmik",
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for API compatibility
   senderName: string = "Sanradhya Bhowmik"
 ) => {
   const port = parseInt(process.env.SMTP_PORT || "465", 10);

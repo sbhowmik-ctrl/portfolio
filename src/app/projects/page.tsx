@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import { Code2, BookOpen, Globe, BarChart3, Sparkles, ArrowRight, X } from "lucide-react";
@@ -115,21 +116,18 @@ function ProjectImagePanel({
   return (
     <div
       className={`relative flex min-h-[200px] w-full flex-col justify-between bg-cover bg-center p-4 md:min-h-[320px] md:max-w-[380px] ${!useImage ? gradient : ""}`}
-      style={
-        useImage
-          ? {
-              backgroundImage: `url('${imageSrc}')`,
-              backgroundColor: "rgb(15 23 42 / 0.5)",
-            }
-          : undefined
-      }
+      style={!useImage ? undefined : { backgroundColor: "rgb(15 23 42 / 0.5)" }}
     >
-      <img
-        src={imageSrc}
-        alt=""
-        className="sr-only"
-        onError={() => setImageFailed(true)}
-      />
+      {useImage && (
+        <Image
+          src={imageSrc}
+          alt=""
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 400px"
+          onError={() => setImageFailed(true)}
+        />
+      )}
       <span className="relative z-10 self-start rounded-lg border border-cyan-400/25 bg-slate-900/90 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-300 shadow-lg">
         {tag}
       </span>
@@ -158,20 +156,15 @@ function ImagePlaceholderCard({
   return (
     <div
       className={`relative flex min-h-[280px] flex-col justify-between overflow-hidden rounded-2xl border border-cyan-500/30 bg-cover bg-center p-4 shadow-[0_0_24px_rgba(6,182,212,0.06)] md:min-h-[320px] ${!useImage ? gradient : ""}`}
-      style={
-        useImage
-          ? {
-              backgroundImage: `url('${backgroundImage}')`,
-              backgroundColor: "rgb(15 23 42 / 0.5)",
-            }
-          : undefined
-      }
+      style={!useImage ? undefined : { backgroundColor: "rgb(15 23 42 / 0.5)" }}
     >
-      {backgroundImage && (
-        <img
+      {useImage && backgroundImage && (
+        <Image
           src={backgroundImage}
           alt=""
-          className="sr-only"
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 400px"
           onError={() => setImageFailed(true)}
         />
       )}
