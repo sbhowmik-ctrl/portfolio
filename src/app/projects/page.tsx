@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Code2, BookOpen, Globe, BarChart3, Sparkles, ArrowRight } from "lucide-react";
+import { gsap } from "gsap";
+import { Code2, BookOpen, Globe, BarChart3, Sparkles, ArrowRight, X } from "lucide-react";
 
 const filters = [
   { id: "all", label: "All Projects" },
@@ -22,6 +23,8 @@ const projects = [
     category: "nlp" as const,
     description:
       "An advanced NLP system implementing both extractive and abstractive summarization methods to process large-scale datasets with high semantic fidelity.",
+    caseStudy:
+      "The Digital Speed-Reader: AI Text Summarizer\n\nWe live in an age of information overload where we are constantly bombarded with long articles, research papers, and news reports, but we rarely have the time to read them all. My AI Text Summarizer acts as a personal assistant that handles the heavy lifting for you. It uses two different \"thinking\" methods: one that functions like a highlighter, picking out the most critical sentences exactly as they are written, and another that acts like a storyteller, reading the whole piece and explaining the main points in its own new words. By condensing long-form content into a brief, easy-to-read summary, it reduces your reading time by 60%, ensuring you stay informed without feeling overwhelmed by a wall of text.",
     keyTechs: "Python, PyTorch, Hugging Face Transformers",
     keyTechsIcon: Code2,
     metrics: "Trained on CNN/Daily Mail & XSum Datasets",
@@ -47,6 +50,8 @@ const projects = [
     category: "computerVision" as const,
     description:
       "High-precision classification model using Xception architecture to detect sophisticated AI-generated visual content and deepfake manipulations.",
+    caseStudy:
+      "The Fraud Detective: Deepfake Image Detection\n\nToday, it is becoming alarmingly easy for AI to create \"Deepfakes\"—fake images of people that look 100% real to the human eye. These can be used for scams, spreading misinformation, or identity theft. To fight this, I built a Deepfake Image Detection Model, which essentially serves as a high-tech \"digital detective.\" While a human might be fooled by a realistic-looking face, my model is trained to look at the microscopic pixel patterns and tiny inconsistencies that the human eye simply cannot see. By studying thousands of examples of both real and fake faces, it learns to spot the subtle \"digital fingerprints\" left behind by AI-generation tools, helping us verify what is real and what is a fabrication in our digital world.",
     keyTechs: "TensorFlow, Keras, OpenCV, MTCNN",
     keyTechsIcon: Globe,
     metrics: "98.2% Accuracy on FaceForensics++ Dataset",
@@ -72,6 +77,8 @@ const projects = [
     category: "deepLearning" as const,
     description:
       "An emotion-aware conversational agent utilizing RoBERTa fine-tuning to provide contextual responses based on real-time sentiment analysis of user input.",
+    caseStudy:
+      "The Emotionally Intelligent Bot: Sentiment-Aware Chatbot\n\nMost of us have had a frustrating experience with a chatbot that feels cold, robotic, and completely ignores our feelings. My Sentiment-Aware Chatbot was designed to bridge that gap by adding a layer of \"human empathy\" to digital conversations. It works by using two distinct AI \"brains\" simultaneously: the first brain acts as a therapist, analyzing your words to detect your current mood—whether you are stressed, happy, or sad. Once it understands your emotion, the second brain kicks in to craft a response that isn't just a generic answer, but a thoughtful, empathetic reply. If you tell the bot you're overwhelmed, it won't just give you a list of links; it will acknowledge your stress and offer a supportive word, making the interaction feel much more like talking to a real person.",
     keyTechs: "RoBERTa Large, FastAPI, React, WebSocket",
     keyTechsIcon: Code2,
     metrics: "Multi-class Sentiment Classification (7 Emotions)",
@@ -181,14 +188,108 @@ function ImagePlaceholderCard({
   );
 }
 
-function ProjectContentCard({
+/** Case study popup modal — words fade up with stagger */
+function CaseStudyModal({
   project,
-  isOpen,
-  onToggle,
+  onClose,
 }: {
   project: (typeof projects)[0];
-  isOpen: boolean;
-  onToggle: () => void;
+  onClose: () => void;
+}) {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const hasCaseStudy = project.caseStudy && project.caseStudy.trim().length > 0;
+  const paragraphs = hasCaseStudy ? project.caseStudy!.trim().split(/\n\n+/) : [];
+
+  useEffect(() => {
+    const container = contentRef.current;
+    if (!container) return;
+    const words = container.querySelectorAll<HTMLElement>(".case-study-word");
+    if (words.length === 0) return;
+    const t = setTimeout(() => {
+      gsap.from(words, {
+        y: 40,
+        opacity: 0,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: "power2.out",
+      });
+    }, 50);
+    return () => clearTimeout(t);
+  }, [project.id]);
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-50 flex items-center justify-center p-4"
+        onClick={onClose}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="case-study-title"
+      >
+        <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" aria-hidden />
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.96 }}
+          transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="relative max-h-[85vh] w-full max-w-2xl overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-900 shadow-[0_0_48px_rgba(6,182,212,0.15)]"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex items-center justify-between border-b border-cyan-500/20 px-5 py-4">
+            <h2 id="case-study-title" className="text-lg font-bold text-slate-50 md:text-xl">
+              {project.name} — Case Study
+            </h2>
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              aria-label="Close"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+          <div
+            ref={contentRef}
+            className="overflow-y-auto px-5 py-4 max-h-[calc(85vh-4rem)]"
+          >
+            {paragraphs.length > 0 ? (
+              <div className="readable-text space-y-4 text-sm leading-relaxed text-slate-200 md:text-base">
+                {paragraphs.map((para, i) => {
+                  const words = para.split(/\s+/).filter(Boolean);
+                  return (
+                    <p key={i}>
+                      {words.map((word, wi) => (
+                        <span key={`${i}-${wi}`} className="case-study-word inline-block pr-[0.25em]">
+                          {word}
+                        </span>
+                      ))}
+                    </p>
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="text-slate-400">Case study content is not available.</p>
+            )}
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+function ProjectContentCard({
+  project,
+  isTechStackOpen,
+  onTechStackToggle,
+  onCaseStudyClick,
+}: {
+  project: (typeof projects)[0];
+  isTechStackOpen: boolean;
+  onTechStackToggle: () => void;
+  onCaseStudyClick: () => void;
 }) {
   const KeyTechsIcon = project.keyTechsIcon;
   const MetricsIcon = project.metricsIcon;
@@ -217,23 +318,23 @@ function ProjectContentCard({
       <div className="mt-6 flex flex-wrap gap-3">
         <button
           type="button"
-          onClick={onToggle}
+          onClick={onCaseStudyClick}
           className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 px-4 py-2.5 text-sm font-semibold text-slate-950 shadow-[0_4px_14px_rgba(6,182,212,0.35)] transition-all hover:shadow-[0_6px_20px_rgba(6,182,212,0.45)]"
         >
-          {isOpen ? "Hide Details" : "View Case Study"}
+          View Case Study
           <span aria-hidden>→</span>
         </button>
         <button
           type="button"
-          onClick={onToggle}
+          onClick={onTechStackToggle}
           className="inline-flex items-center rounded-xl border border-cyan-500/50 bg-slate-800/40 px-4 py-2.5 text-sm font-medium text-slate-200 transition-colors hover:border-cyan-400 hover:bg-cyan-500/10 hover:text-cyan-300"
         >
-          Tech Stack
+          {isTechStackOpen ? "Hide Tech Stack" : "Tech Stack"}
         </button>
       </div>
 
       <AnimatePresence>
-        {isOpen && (
+        {isTechStackOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
@@ -340,11 +441,13 @@ function EmptyCategoryState({
 
 export default function ProjectsPage() {
   const [activeFilter, setActiveFilter] = useState<FilterId>("all");
-  const [openId, setOpenId] = useState<string | null>(null);
+  const [techStackOpenId, setTechStackOpenId] = useState<string | null>(null);
+  const [caseStudyProjectId, setCaseStudyProjectId] = useState<string | null>(null);
 
   const summarizer = projects[0];
   const deepfake = projects[1];
   const sentiment = projects[2];
+  const caseStudyProject = caseStudyProjectId ? projects.find((p) => p.id === caseStudyProjectId) : null;
 
   const isAllFilter = activeFilter === "all";
   const showSummarizer = isAllFilter || activeFilter === "nlp";
@@ -413,12 +516,13 @@ export default function ProjectsPage() {
               <div className="flex-1 p-5 md:p-6">
                 <ProjectContentCard
                   project={summarizer}
-                  isOpen={openId === summarizer.id}
-                  onToggle={() =>
-                    setOpenId((prev) =>
+                  isTechStackOpen={techStackOpenId === summarizer.id}
+                  onTechStackToggle={() =>
+                    setTechStackOpenId((prev) =>
                       prev === summarizer.id ? null : summarizer.id
                     )
                   }
+                  onCaseStudyClick={() => setCaseStudyProjectId(summarizer.id)}
                 />
               </div>
             </div>
@@ -443,12 +547,13 @@ export default function ProjectsPage() {
                 <div className="flex-1 p-5 md:p-6">
                   <ProjectContentCard
                     project={deepfake}
-                    isOpen={openId === deepfake.id}
-                    onToggle={() =>
-                      setOpenId((prev) =>
+                    isTechStackOpen={techStackOpenId === deepfake.id}
+                    onTechStackToggle={() =>
+                      setTechStackOpenId((prev) =>
                         prev === deepfake.id ? null : deepfake.id
                       )
                     }
+                    onCaseStudyClick={() => setCaseStudyProjectId(deepfake.id)}
                   />
                 </div>
               </div>
@@ -458,12 +563,13 @@ export default function ProjectsPage() {
                   <div className="rounded-3xl border border-cyan-500/30 bg-slate-900/60 shadow-[0_0_24px_rgba(6,182,212,0.05)]">
                     <ProjectContentCard
                       project={deepfake}
-                    isOpen={openId === deepfake.id}
-                    onToggle={() =>
-                      setOpenId((prev) =>
-                        prev === deepfake.id ? null : deepfake.id
-                      )
-                    }
+                      isTechStackOpen={techStackOpenId === deepfake.id}
+                      onTechStackToggle={() =>
+                        setTechStackOpenId((prev) =>
+                          prev === deepfake.id ? null : deepfake.id
+                        )
+                      }
+                      onCaseStudyClick={() => setCaseStudyProjectId(deepfake.id)}
                     />
                   </div>
                 )}
@@ -497,12 +603,13 @@ export default function ProjectsPage() {
                 <div className="flex-1 p-5 md:p-6">
                   <ProjectContentCard
                     project={sentiment}
-                    isOpen={openId === sentiment.id}
-                    onToggle={() =>
-                      setOpenId((prev) =>
+                    isTechStackOpen={techStackOpenId === sentiment.id}
+                    onTechStackToggle={() =>
+                      setTechStackOpenId((prev) =>
                         prev === sentiment.id ? null : sentiment.id
                       )
                     }
+                    onCaseStudyClick={() => setCaseStudyProjectId(sentiment.id)}
                   />
                 </div>
               </div>
@@ -519,12 +626,13 @@ export default function ProjectsPage() {
                   <div className="rounded-3xl border border-cyan-500/30 bg-slate-900/60 shadow-[0_0_24px_rgba(6,182,212,0.05)]">
                     <ProjectContentCard
                       project={sentiment}
-                      isOpen={openId === sentiment.id}
-                      onToggle={() =>
-                        setOpenId((prev) =>
+                      isTechStackOpen={techStackOpenId === sentiment.id}
+                      onTechStackToggle={() =>
+                        setTechStackOpenId((prev) =>
                           prev === sentiment.id ? null : sentiment.id
                         )
                       }
+                      onCaseStudyClick={() => setCaseStudyProjectId(sentiment.id)}
                     />
                   </div>
                 )}
@@ -537,6 +645,13 @@ export default function ProjectsPage() {
           <EmptyCategoryState activeFilter={activeFilter} onViewAll={() => setActiveFilter("all")} />
         )}
       </main>
+
+      {caseStudyProject && (
+        <CaseStudyModal
+          project={caseStudyProject}
+          onClose={() => setCaseStudyProjectId(null)}
+        />
+      )}
     </div>
   );
 }

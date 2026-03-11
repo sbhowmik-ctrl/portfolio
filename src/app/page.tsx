@@ -1,9 +1,83 @@
 "use client";
 
 import Link from "next/link";
+import { useRef, useEffect } from "react";
 import HeroSection from "@/app/components/HeroSection";
 import { motion } from "framer-motion";
+import { gsap } from "gsap";
 import { Brain, Network, CloudCog } from "lucide-react";
+
+function OrigamiText({
+  text,
+  className = "",
+  gradientClassName = "",
+  gradientFrom,
+  wrapWords = false,
+}: {
+  text: string;
+  className?: string;
+  gradientClassName?: string;
+  gradientFrom?: number;
+  /** When true, wrap each word in a non-breaking span so lines break between words only */
+  wrapWords?: boolean;
+}) {
+  const from = gradientFrom ?? text.length;
+  const plain = text.slice(0, from);
+  const gradient = text.slice(from);
+
+  const renderChars = (str: string, keyPrefix: string) =>
+    str.split("").map((char, i) => (
+      <span key={`${keyPrefix}-${i}`} className="origami-char inline-block" style={{ transformOrigin: "left center" }}>
+        {char === " " ? "\u00A0" : char}
+      </span>
+    ));
+
+  const renderAsWords = (str: string, keyPrefix: string) => {
+    const parts = str.split(/(\s+)/);
+    return parts.map((part, wi) => {
+      if (/^\s+$/.test(part)) {
+        return <span key={`${keyPrefix}-space-${wi}`}>{part === " " ? "\u00A0" : part}</span>;
+      }
+      return (
+        <span key={`${keyPrefix}-${wi}`} className="origami-word inline-block whitespace-nowrap">
+          {renderChars(part, `${keyPrefix}-w${wi}`)}
+        </span>
+      );
+    });
+  };
+
+  if (!wrapWords) {
+    return (
+      <span className={className}>
+        {plain.split("").map((char, i) => (
+          <span key={`p-${i}`} className="origami-char inline-block" style={{ transformOrigin: "left center" }}>
+            {char === " " ? "\u00A0" : char}
+          </span>
+        ))}
+        {gradient ? (
+          <span className={gradientClassName}>
+            {gradient.split("").map((char, i) => (
+              <span key={`g-${i}`} className="origami-char inline-block" style={{ transformOrigin: "left center" }}>
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))}
+          </span>
+        ) : null}
+      </span>
+    );
+  }
+
+  return (
+    <span className={className}>
+      {renderAsWords(plain, "p")}
+      {gradient ? (
+        <span className={gradientClassName}>
+          {renderAsWords(gradient, "g")}
+        </span>
+      ) : null}
+    </span>
+  );
+}
 
 const focusCards = [
   {
@@ -36,11 +110,67 @@ const focusCards = [
 ];
 
 export default function Home() {
+  const focusSectionRef = useRef<HTMLElement>(null);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const section = focusSectionRef.current;
+    if (!section || hasAnimated.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (!entry?.isIntersecting || hasAnimated.current) return;
+        hasAnimated.current = true;
+
+        const heading = section.querySelector(".origami-heading");
+        const headingChars = heading?.querySelectorAll<HTMLElement>(".origami-char");
+        const cardTitles = section.querySelectorAll<HTMLElement>(".origami-card-title");
+
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+        if (headingChars?.length) {
+          tl.from(headingChars, {
+            rotationY: -90,
+            rotationX: 45,
+            transformOrigin: "left center",
+            opacity: 0,
+            stagger: 0.05,
+            duration: 0.8,
+          });
+        }
+
+        cardTitles.forEach((titleEl) => {
+          const chars = titleEl.querySelectorAll<HTMLElement>(".origami-char");
+          if (chars.length) {
+            tl.from(
+              chars,
+              {
+                rotationY: -90,
+                rotationX: 45,
+                transformOrigin: "left center",
+                opacity: 0,
+                stagger: 0.05,
+                duration: 0.8,
+              },
+              ">"
+            );
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px" }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <main className="relative min-h-screen bg-transparent text-slate-100">
       <HeroSection />
 
       <motion.section
+        ref={focusSectionRef}
         id="focus-areas"
         className="relative scroll-mt-24 border-t border-slate-800/80"
         initial={{ opacity: 0, y: 40 }}
@@ -50,13 +180,17 @@ export default function Home() {
       >
         <div className="relative mx-auto max-w-6xl px-4 py-14 md:py-20">
           <div className="mb-12">
-            <span className="inline-block rounded-full border border-cyan-500/40 bg-cyan-500/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-400">
+            <span className="inline-block rounded-full border border-cyan-500/40 bg-cyan-500/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-white">
               Expertise
             </span>
-            <h2 className="mt-4 text-2xl font-bold tracking-tight text-slate-50 md:text-3xl">
-              Core Focus <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">Areas</span>
+            <h2 className="origami-heading mt-4 text-2xl font-bold tracking-tight text-white md:text-3xl" style={{ perspective: "800px" }}>
+              <OrigamiText
+                text="Core Focus Areas"
+                gradientFrom={11}
+                gradientClassName="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent"
+              />
             </h2>
-            <p className="readable-text mt-3 max-w-2xl text-sm leading-relaxed text-slate-400 md:text-base">
+            <p className="readable-text mt-3 max-w-2xl text-sm leading-relaxed text-white md:text-base">
               Engineering systems that connect AI models, decentralized protocols, and cloud-native
               infrastructure into resilient, production-grade ecosystems.
             </p>
@@ -95,13 +229,13 @@ export default function Home() {
                         <Icon className="h-6 w-6" aria-hidden />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-white">
                           {card.label}
                         </p>
-                        <h3 className="mt-2 text-lg font-bold text-slate-50 md:text-xl">
-                          {card.title}
+                        <h3 className="origami-card-title mt-2 text-lg font-bold text-white md:text-xl" style={{ perspective: "600px" }}>
+                          <OrigamiText text={card.title} wrapWords />
                         </h3>
-                        <p className="readable-text mt-3 text-sm leading-relaxed text-slate-400">
+                        <p className="readable-text mt-3 text-sm leading-relaxed text-white">
                           {card.description}
                         </p>
                       </div>
