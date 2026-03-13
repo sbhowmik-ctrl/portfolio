@@ -45,9 +45,9 @@ export default function NavbarClient({ content }: NavbarClientProps) {
     "border border-white/25 bg-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.15)_inset] backdrop-blur-xl";
 
   return (
-    <header id="site-navbar" className="sticky top-4 z-50 w-full px-4 sm:px-6">
-      {/* Slim floating pill: highly curved, minimal height */}
-      <div className="relative mx-auto max-w-4xl">
+    <header id="site-navbar" className="sticky top-4 z-50 w-full px-3 sm:px-5">
+      {/* Slim floating pill: curved */}
+      <div className="relative mx-auto max-w-5xl">
         <div
           className={`absolute inset-0 rounded-full ${glassBar}`}
           style={{
@@ -132,7 +132,7 @@ export default function NavbarClient({ content }: NavbarClientProps) {
 
       {/* Mobile dropdown - crystal glass, curved bottom */}
       <div
-        className={`relative mx-auto max-w-6xl overflow-hidden transition-all duration-300 ease-out md:hidden ${
+        className={`relative mx-auto max-w-5xl overflow-hidden transition-all duration-300 ease-out md:hidden ${
           isMobileMenuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
