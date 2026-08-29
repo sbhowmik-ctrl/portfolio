@@ -9,6 +9,7 @@ type NavbarLink = {
 type NavbarContent = {
   brand: string;
   links: NavbarLink[];
+  cta?: { label: string; href: string };
 };
 
 async function readNavbarContent(): Promise<NavbarContent> {
