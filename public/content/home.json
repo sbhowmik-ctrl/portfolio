@@ -1,0 +1,306 @@
+{
+  "hero": {
+    "eyebrow": "The AI & Systems Engineer. That’s Sanradhya.",
+    "titleLines": ["AI & Systems,", "Applied Differently."],
+    "description": "I build production AI you can run: retrieval, models, and the cloud systems that keep them reliable.",
+    "primaryCta": { "label": "Book a Call", "href": "/contact" },
+    "secondaryCta": { "label": "About Me", "href": "#journey" },
+    "wordmark": "SANRADHYA",
+    "portrait": "/images/sanradhya-portrait-1-removebg-preview.png",
+    "traits": ["Creative", "Reliable", "Strategist", "Builder", "Efficient"],
+    "focus": ["Retrieval", "On-device", "Cloud"],
+    "now": { "kicker": "Now", "label": "Private AI systems" }
+  },
+  "journey": {
+    "kicker": "Start small grow big",
+    "title": "About Me (&) My Journey",
+    "intro": "I opened my first notebook for intelligent systems a few years ago. What happened after that is easier to show than explain.",
+    "spotlight": {
+      "headline": "Engineering Intelligent Ecosystems",
+      "body": "CSE (AIML) engineer building scalable, decentralized, and production-ready intelligent systems—from AI pipelines to high-reliability infrastructure and cloud-native deployments.",
+      "pillars": [
+        {
+          "title": "AI Systems",
+          "body": "End-to-end ML pipelines & intelligent services"
+        },
+        {
+          "title": "Systems Architecture",
+          "body": "Distributed systems, consistency, and secure protocols"
+        },
+        {
+          "title": "Cloud & DevOps",
+          "body": "Scalable, observable, and automated deployments"
+        }
+      ]
+    },
+    "items": [
+      {
+        "year": "'24",
+        "fullYear": "2024",
+        "title": "Starting with curiosity",
+        "summary": "Carried forward AIML coursework and side experiments into real builds—data, models, and the systems around them.",
+        "detail": "The early years were late nights, broken training runs, and the thrill of something that actually inferred. By 2024 that habit became systems thinking: notebooks turning into deployable services with APIs, pipelines, and interfaces people could use.",
+        "handle": "@aiml",
+        "ago": "2 years ago"
+      },
+      {
+        "year": "'25",
+        "fullYear": "2025",
+        "title": "Beyond the comfort zone",
+        "summary": "Deepfake detection, edge voice, and on-device inference pushed past “demo-ready” into real constraints.",
+        "detail": "Shipping became the teacher. GPU inference, ensemble models, Indic ASR, and privacy-first tooling forced harder trade-offs—latency, accuracy, auth, monitoring, and what stays on-device vs in the cloud.",
+        "handle": "@edge",
+        "ago": "1 year ago"
+      },
+      {
+        "year": "'26",
+        "fullYear": "2026",
+        "title": "Systems that stay private",
+        "summary": "Blindspot and Vaani—local AI review and offline voice UI—centered on trust and ownership of data.",
+        "detail": "The through-line from those first experiments to now: intelligent systems people can run without surrendering their code or conversations to a black-box API. Same craft, sharper tools—the best work is still ahead.",
+        "handle": "@privacy",
+        "ago": "now"
+      }
+    ]
+  },
+  "work": {
+    "kicker": "Selected work",
+    "title": "Built with intention,\nMade to perform",
+    "intro": "A look at systems across NLP, vision, edge AI, and developer tooling—each shaped to solve a real constraint, not just look clever in a demo.",
+    "items": [
+      {
+        "id": "blindspot",
+        "name": "Blindspot",
+        "index": "01",
+        "tags": ["On-device", "Devtools", "Privacy"],
+        "blurb": "Local AI code review against git diffs—zero cloud APIs.",
+        "image": "/images/ml-models-diagram.png",
+        "href": "/projects"
+      },
+      {
+        "id": "vaani",
+        "name": "Vaani",
+        "index": "02",
+        "tags": ["Edge AI", "Voice", "ASR"],
+        "blurb": "Offline multilingual voice UI for government form automation.",
+        "image": "/images/conversational-ai.png",
+        "href": "/projects"
+      },
+      {
+        "id": "deepfake",
+        "name": "Deepfake Detection",
+        "index": "03",
+        "tags": ["Vision", "Ensemble", "GPU"],
+        "blurb": "Xception + EfficientNet + XGBoost, served on Modal T4.",
+        "image": "/images/deepfake-detection.png",
+        "href": "/projects"
+      },
+      {
+        "id": "summarizer",
+        "name": "AI Text Summarizer",
+        "index": "04",
+        "tags": ["NLP", "Extractive", "Abstractive"],
+        "blurb": "Large-scale summarization with high semantic fidelity.",
+        "image": "/images/nlp-system.png",
+        "href": "/projects"
+      }
+    ]
+  },
+  "skills": {
+    "kicker": "Toolkit",
+    "title": "Skills,\nDrawn in motion",
+    "intro": "A visual map of the stack I actually ship with—from models and prompts to cloud, containers, and the data layer. Depth markers show relative focus, not a scorecard.",
+    "radar": [
+      { "label": "ML & GenAI", "value": 94 },
+      { "label": "Languages", "value": 88 },
+      { "label": "Cloud", "value": 82 },
+      { "label": "DevOps", "value": 78 },
+      { "label": "Web", "value": 80 },
+      { "label": "Data", "value": 76 }
+    ],
+    "bars": [
+      { "label": "Python", "value": 94 },
+      { "label": "LLMs · RAG · Prompting", "value": 92 },
+      { "label": "Scikit-learn · TensorFlow · Keras", "value": 88 },
+      { "label": "Next.js", "value": 84 },
+      { "label": "AWS · Azure · GCP", "value": 82 },
+      { "label": "C++", "value": 74 }
+    ],
+    "clouds": [
+      { "label": "AWS", "value": 86, "note": "S3 · EC2 · Amplify" },
+      { "label": "GCP", "value": 74, "note": "Colab · Vertex-ready" },
+      { "label": "Azure", "value": 70, "note": "DevOps pipelines" }
+    ],
+    "groups": [
+      {
+        "title": "Programming Languages",
+        "items": ["Python", "C++"]
+      },
+      {
+        "title": "Machine Learning, NLP & GenAI",
+        "items": [
+          "Scikit-learn",
+          "TensorFlow",
+          "Keras",
+          "NLTK",
+          "SpaCy",
+          "LLMs",
+          "SLMs",
+          "Gemma",
+          "Phi-3",
+          "RAG",
+          "Prompt Engineering"
+        ]
+      },
+      {
+        "title": "Web Frameworks",
+        "items": ["Next.js"]
+      },
+      {
+        "title": "Cloud Platforms & Ecosystems",
+        "items": [
+          "AWS",
+          "S3",
+          "EC2",
+          "Amplify",
+          "Azure",
+          "GCP",
+          "Google Colab",
+          "Kaggle",
+          "Web",
+          "Windows"
+        ]
+      },
+      {
+        "title": "DevOps & Infrastructure",
+        "items": ["Docker", "CI/CD Pipeline Automation", "Azure DevOps", "NGINX", "Virtual Machines"]
+      },
+      {
+        "title": "Version Control",
+        "items": ["Git", "GitHub"]
+      },
+      {
+        "title": "Databases",
+        "items": ["PostgreSQL", "MySQL"]
+      },
+      {
+        "title": "Other Technical Tools",
+        "items": ["Regex"]
+      }
+    ]
+  },
+  "capabilities": {
+    "kicker": "What you get",
+    "title": "What\nYou Get?",
+    "subtitle": "Capabilities overview",
+    "intro": "The same stack from the skills map—Python and C++, models and prompts, Next.js on the surface, cloud and containers underneath—turned into systems you can actually run.",
+    "items": [
+      {
+        "title": "ML & GenAI Systems",
+        "body": "Scikit-learn, TensorFlow, and Keras for classical and deep learning; LLMs, SLMs, RAG, and prompt engineering to take a model from notebook to a service."
+      },
+      {
+        "title": "Product Surfaces & APIs",
+        "body": "Next.js applications wired to Python backends, Git/GitHub workflows, and clean service boundaries—integrations that hold up past the demo."
+      },
+      {
+        "title": "Edge & On-Device AI",
+        "body": "Gemma, Phi-3, and other small models where data should stay local—offline-first inference when privacy and latency matter more than a cloud round-trip."
+      },
+      {
+        "title": "NLP & Language Pipelines",
+        "body": "NLTK, SpaCy, and retrieval-augmented flows for summarization, extraction, and multilingual language work—not a chatbot bolted on as an afterthought."
+      },
+      {
+        "title": "Cloud, Data & Delivery",
+        "body": "AWS, Azure, and GCP with Docker, CI/CD, NGINX, and VMs; PostgreSQL or MySQL when the data has to last. Deployments you can observe and hand off."
+      }
+    ]
+  },
+  "services": {
+    "kicker": "Services",
+    "title": "How the\nwork starts",
+    "intro": "Three depths of the same craft: review the system, ship a slice, or keep iterating after it’s live.",
+    "plans": [
+      {
+        "name": "System Review",
+        "price": "Let’s talk",
+        "priceNote": "",
+        "description": "A hard look at models, data, and deploy path before you train the wrong thing—or send private data to a cloud API.",
+        "features": [
+          "ML / LLM / SLM fit (Keras, RAG, Gemma, Phi-3)",
+          "On-device vs cloud recommendation",
+          "AWS, Azure, or GCP delivery path",
+          "Written next-step plan"
+        ],
+        "footer": "When the question is still “should we build this?”",
+        "cta": { "label": "Book a Call", "href": "/contact" }
+      },
+      {
+        "name": "Scoped Build",
+        "price": "Quoted",
+        "priceNote": "per project",
+        "description": "A defined slice from prototype to something you can run—inference, UI, and the pipes around it.",
+        "features": [
+          "NLP, RAG, or local GGUF / WebGPU features",
+          "Next.js UI with Python services",
+          "Docker, CI/CD, NGINX, PostgreSQL",
+          "Repo, docs, and walkthrough"
+        ],
+        "footer": "When a feature needs to exist, not a slide.",
+        "cta": { "label": "Book a Call", "href": "/contact" },
+        "featured": true
+      },
+      {
+        "name": "Iteration Block",
+        "price": "Monthly",
+        "priceNote": "hours",
+        "description": "Keep a live system honest—better prompts and retrieval, tighter models, cleaner infra.",
+        "features": [
+          "Prompt, RAG, and model iteration",
+          "Latency, cost, and reliability",
+          "Cloud, Docker, and pipeline hardening",
+          "Priority async collaboration"
+        ],
+        "footer": "When something is already in production.",
+        "cta": { "label": "Book a Call", "href": "/contact" }
+      }
+    ]
+  },
+  "cta": {
+    "title": "From models\nto cloud,\nlet's ship it",
+    "body": "Python and C++ at the core, RAG and prompt engineering for the intelligence, Next.js on the surface, and AWS, Azure, or GCP with Docker and CI/CD underneath—plus PostgreSQL when the data has to last.",
+    "prompt": "Have something in mind?",
+    "button": { "label": "Let’s Talk", "href": "/contact" }
+  },
+  "faq": {
+    "kicker": "FAQ",
+    "title": "Got any\nquestions?",
+    "items": [
+      {
+        "q": "Do you only build research demos?",
+        "a": "No. Demos are useful, but the focus is production-aware systems—APIs, edge constraints, observability, and handoffs your team can actually run."
+      },
+      {
+        "q": "Can you work with an existing codebase?",
+        "a": "Yes. A lot of the value is auditing what you have, clarifying bottlenecks, and improving structure, performance, or model integration without a full rewrite."
+      },
+      {
+        "q": "What’s the process from start to launch?",
+        "a": "It starts with goals, constraints, and success criteria. Then a clear scope, staged builds with visible progress, and a handoff you understand—not a black box dump."
+      },
+      {
+        "q": "Do you sign NDAs?",
+        "a": "Yes. Sensitive products and internal tools are treated with the same discretion as public work. Happy to sign an NDA before details."
+      },
+      {
+        "q": "Design, engineering, or both?",
+        "a": "Engineering is the core strength, with a strong product eye. If you have designers, collaboration is tight. If you have a rough direction, we can shape and bring in design help when needed."
+      },
+      {
+        "q": "Not sure which engagement fits?",
+        "a": "Just reach out and describe what you have in mind. We’ll figure out a system review, a scoped build, or an iteration block from the problem—not a forced package."
+      }
+    ]
+  }
+}

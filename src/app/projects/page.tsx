@@ -4,7 +4,17 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
-import { Code2, BookOpen, Globe, BarChart3, Sparkles, ArrowRight, X } from "lucide-react";
+import {
+  Code2,
+  BookOpen,
+  Globe,
+  BarChart3,
+  ArrowRight,
+  X,
+  Terminal,
+  Mic,
+  ShieldCheck,
+} from "lucide-react";
 
 const filters = [
   { id: "all", label: "All Projects" },
@@ -12,16 +22,100 @@ const filters = [
   { id: "computerVision", label: "Computer Vision" },
   { id: "generativeAI", label: "Generative AI" },
   { id: "deepLearning", label: "Deep Learning" },
+  { id: "edgeAI", label: "Edge & On-Device AI" },
 ] as const;
 
 type FilterId = (typeof filters)[number]["id"];
 
+type ProjectCategory = Exclude<FilterId, "all">;
+
 const projects = [
+  {
+    id: "blindspot",
+    name: "Blindspot — Local AI Code Reviewer",
+    tag: "DEVTOOLS · ON-DEVICE AI",
+    categories: ["generativeAI", "edgeAI"] as ProjectCategory[],
+    description:
+      "Privacy-first Node.js CLI that runs on-device AI code reviews against uncommitted git diffs using local GGUF models—zero cloud API dependencies.",
+    caseStudy:
+      "Blindspot: Your Local Code Reviewer\n\nMost AI code review tools send your source to the cloud. Blindspot keeps everything on your machine. It inspects uncommitted git diffs with local GGUF models via node-llama-cpp, automates first-run model acquisition, runs agentic repo-diff analysis, and writes a markdown report (blindspot-report.md) before you commit. Built for developers who want LLM-quality review without leaking proprietary code.",
+    keyTechs: "Node.js, node-llama-cpp, simple-git, Commander",
+    keyTechsIcon: Terminal,
+    metrics: "On-device GGUF inference · zero cloud APIs",
+    metricsIcon: ShieldCheck,
+    techStack: [
+      "Node.js",
+      "Commander",
+      "simple-git",
+      "cli-progress",
+      "node-llama-cpp",
+      "GGUF",
+      "Git",
+    ],
+    imageSrc: "/images/ml-models-diagram.png",
+    gradient: "bg-gradient-to-br from-emerald-500/10 to-slate-100",
+  },
+  {
+    id: "vaani",
+    name: "Vaani — Edge Voice UI & Indic ASR",
+    tag: "EDGE AI · VOICE · ASR",
+    categories: ["generativeAI", "nlp", "edgeAI"] as ProjectCategory[],
+    description:
+      "Offline multilingual (EN/HI/BN) voice kiosk for government form automation—on-device Gemma via WebGPU, conversational state machine, and fine-tuned Indic ASR.",
+    caseStudy:
+      "Vaani: Voice at the Edge\n\nGovernment portals and kiosks often fail people who prefer speaking in Hindi or Bengali. Vaani is an offline voice UI that runs Gemma 4 E2B (ONNX) on-device through WebGPU—no cloud STT. A conversational state machine collects, corrects, and translates spoken input into structured English JSON. FastAPI and Playwright (CDP) automate portal filling with human CAPTCHA handoffs. A custom Indic ASR LoRA reaches 77.46% accuracy (22.54% WER) on noisy field audio.",
+    keyTechs: "Next.js, Transformers.js, WebGPU, Gemma, FastAPI",
+    keyTechsIcon: Mic,
+    metrics: "77.46% Indic ASR accuracy · 22.54% WER",
+    metricsIcon: BarChart3,
+    techStack: [
+      "Next.js",
+      "Transformers.js",
+      "WebGPU",
+      "Gemma 4 E2B",
+      "ONNX",
+      "FastAPI",
+      "Playwright",
+      "LoRA",
+      "Indic ASR",
+    ],
+    imageSrc: "/images/conversational-ai.png",
+    gradient: "bg-gradient-to-br from-teal-500/10 to-slate-100",
+  },
+  {
+    id: "deepfake",
+    name: "Deepfake Detection Web App",
+    tag: "DEEP LEARNING · CLOUD GPU",
+    categories: ["computerVision", "deepLearning"] as ProjectCategory[],
+    description:
+      "Ensemble deepfake detector stacking Xception and EfficientNet with an XGBoost meta-learner, served via a Modal T4 GPU FastAPI engine and a Next.js + Firebase web app.",
+    caseStudy:
+      "The Fraud Detective: Deepfake Detection Web App\n\nAI-generated faces are increasingly hard to spot by eye. This system stacks Xception and EfficientNet CNN feature extractors with an XGBoost meta-learner for Real/Fake classification. A serverless GPU-backed (T4) FastAPI inference engine on Modal supports single and batch analysis. The Next.js frontend uses Firebase Auth, Firestore, and Storage for authentication and persistent detection history—turning research-grade detection into a usable product.",
+    keyTechs: "Xception, EfficientNet, XGBoost, FastAPI, Modal",
+    keyTechsIcon: Globe,
+    metrics: "Ensemble CNN + XGBoost · Modal T4 GPU inference",
+    metricsIcon: BarChart3,
+    techStack: [
+      "Xception",
+      "EfficientNet",
+      "XGBoost",
+      "TensorFlow/Keras",
+      "FastAPI",
+      "Modal",
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Firebase",
+    ],
+    imageSrc: "/images/deepfake-detection.png",
+    gradient: "bg-gradient-to-br from-violet-500/10 to-slate-100",
+  },
   {
     id: "ai-summarizer",
     name: "AI Text Summarizer",
     tag: "NLP SYSTEM",
-    category: "nlp" as const,
+    categories: ["nlp"] as ProjectCategory[],
     description:
       "An advanced NLP system implementing both extractive and abstractive summarization methods to process large-scale datasets with high semantic fidelity.",
     caseStudy:
@@ -42,40 +136,14 @@ const projects = [
       "Jupyter Notebook",
       "VS Code",
     ],
-    layout: "full" as const,
-  },
-  {
-    id: "deepfake",
-    name: "Deepfake Image Detection",
-    tag: "COMPUTER VISION",
-    category: "computerVision" as const,
-    description:
-      "High-precision classification model using Xception architecture to detect sophisticated AI-generated visual content and deepfake manipulations.",
-    caseStudy:
-      "The Fraud Detective: Deepfake Image Detection\n\nToday, it is becoming alarmingly easy for AI to create \"Deepfakes\"—fake images of people that look 100% real to the human eye. These can be used for scams, spreading misinformation, or identity theft. To fight this, I built a Deepfake Image Detection Model, which essentially serves as a high-tech \"digital detective.\" While a human might be fooled by a realistic-looking face, my model is trained to look at the microscopic pixel patterns and tiny inconsistencies that the human eye simply cannot see. By studying thousands of examples of both real and fake faces, it learns to spot the subtle \"digital fingerprints\" left behind by AI-generation tools, helping us verify what is real and what is a fabrication in our digital world.",
-    keyTechs: "TensorFlow, Keras, OpenCV, MTCNN",
-    keyTechsIcon: Globe,
-    metrics: "98.2% Accuracy on FaceForensics++ Dataset",
-    metricsIcon: BarChart3,
-    techStack: [
-      "Python",
-      "TensorFlow",
-      "Keras",
-      "OpenCV",
-      "NumPy",
-      "Pandas",
-      "Matplotlib",
-      "scikit-learn",
-      "Jupyter Notebook",
-      "VS Code",
-    ],
-    layout: "content" as const,
+    imageSrc: "/images/nlp-system.png",
+    gradient: "bg-gradient-to-br from-pink-500/10 to-slate-100",
   },
   {
     id: "sentiment",
     name: "Sentiment Analyzer Chatbot",
     tag: "CONVERSATIONAL AI",
-    category: "deepLearning" as const,
+    categories: ["deepLearning", "nlp"] as ProjectCategory[],
     description:
       "An emotion-aware conversational agent utilizing RoBERTa fine-tuning to provide contextual responses based on real-time sentiment analysis of user input.",
     caseStudy:
@@ -96,7 +164,8 @@ const projects = [
       "scikit-learn",
       "Jupyter Notebook",
     ],
-    layout: "content" as const,
+    imageSrc: "/images/conversational-ai.png",
+    gradient: "bg-gradient-to-br from-cyan-500/10 to-slate-100",
   },
 ];
 
@@ -116,7 +185,7 @@ function ProjectImagePanel({
   return (
     <div
       className={`relative flex min-h-[200px] w-full flex-col justify-between bg-cover bg-center p-4 md:min-h-[320px] md:max-w-[380px] ${!useImage ? gradient : ""}`}
-      style={!useImage ? undefined : { backgroundColor: "rgb(15 23 42 / 0.5)" }}
+      style={!useImage ? undefined : { backgroundColor: "rgb(244 247 251 / 0.8)" }}
     >
       {useImage && (
         <Image
@@ -128,55 +197,15 @@ function ProjectImagePanel({
           onError={() => setImageFailed(true)}
         />
       )}
-      <span className="relative z-10 self-start rounded-lg border border-cyan-400/25 bg-slate-900/90 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-300 shadow-lg">
+      <span className="relative z-10 self-start rounded-lg border border-cyan-500/30 bg-white/95 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-700 shadow-lg">
         {tag}
       </span>
       {!useImage && (
         <div className="absolute inset-0 flex items-center justify-center opacity-25">
-          <div className="h-24 w-24 rounded-full border-2 border-cyan-400/40 bg-cyan-500/10" />
+          <div className="h-24 w-24 rounded-full border-2 border-cyan-500/40 bg-cyan-500/10" />
         </div>
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/20 to-transparent" aria-hidden />
-    </div>
-  );
-}
-
-function ImagePlaceholderCard({
-  tag,
-  gradient,
-  backgroundImage,
-}: {
-  tag: string;
-  gradient: string;
-  backgroundImage?: string;
-}) {
-  const [imageFailed, setImageFailed] = useState(false);
-  const useImage = backgroundImage && !imageFailed;
-
-  return (
-    <div
-      className={`relative flex min-h-[280px] flex-col justify-between overflow-hidden rounded-2xl border border-cyan-500/30 bg-cover bg-center p-4 shadow-[0_0_24px_rgba(6,182,212,0.06)] md:min-h-[320px] ${!useImage ? gradient : ""}`}
-      style={!useImage ? undefined : { backgroundColor: "rgb(15 23 42 / 0.5)" }}
-    >
-      {useImage && backgroundImage && (
-        <Image
-          src={backgroundImage}
-          alt=""
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 400px"
-          onError={() => setImageFailed(true)}
-        />
-      )}
-      <span className="relative z-10 self-start rounded-lg border border-cyan-400/25 bg-slate-900/90 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-300 shadow-lg">
-        {tag}
-      </span>
-      {!useImage && (
-        <div className="absolute inset-0 flex items-center justify-center opacity-25">
-          <div className="h-24 w-24 rounded-full border-2 border-cyan-400/40 bg-cyan-500/10" />
-        </div>
-      )}
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" aria-hidden />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#F4F7FB]/90 via-white/30 to-transparent" aria-hidden />
     </div>
   );
 }
@@ -222,23 +251,23 @@ function CaseStudyModal({
         aria-modal="true"
         aria-labelledby="case-study-title"
       >
-        <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" aria-hidden />
+        <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" aria-hidden />
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.96 }}
           transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative max-h-[85vh] w-full max-w-2xl overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-900 shadow-[0_0_48px_rgba(6,182,212,0.15)]"
+          className="relative max-h-[85vh] w-full max-w-2xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_0_48px_rgba(15,23,42,0.12)]"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex items-center justify-between border-b border-cyan-500/20 px-5 py-4">
-            <h2 id="case-study-title" className="text-lg font-bold text-slate-50 md:text-xl">
+          <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+            <h2 id="case-study-title" className="text-lg font-bold text-slate-900 md:text-xl">
               {project.name} — Case Study
             </h2>
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              className="rounded-lg p-1.5 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-800 focus:outline-none focus:ring-2 focus:ring-cyan-400"
               aria-label="Close"
             >
               <X className="h-5 w-5" />
@@ -249,7 +278,7 @@ function CaseStudyModal({
             className="overflow-y-auto px-5 py-4 max-h-[calc(85vh-4rem)]"
           >
             {paragraphs.length > 0 ? (
-              <div className="readable-text space-y-4 text-sm leading-relaxed text-slate-200 md:text-base">
+              <div className="readable-text space-y-4 text-sm leading-relaxed text-slate-700 md:text-base">
                 {paragraphs.map((para, i) => {
                   const words = para.split(/\s+/).filter(Boolean);
                   return (
@@ -264,7 +293,7 @@ function CaseStudyModal({
                 })}
               </div>
             ) : (
-              <p className="text-slate-400">Case study content is not available.</p>
+              <p className="text-slate-500">Case study content is not available.</p>
             )}
           </div>
         </motion.div>
@@ -288,22 +317,22 @@ function ProjectContentCard({
   const MetricsIcon = project.metricsIcon;
 
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-900/90 p-5 shadow-[0_0_24px_rgba(6,182,212,0.05)] transition-shadow hover:shadow-[0_0_36px_rgba(6,182,212,0.1)] md:p-6">
+    <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_4px_14px_rgba(15,23,42,0.06)] transition-shadow hover:shadow-[0_8px_24px_rgba(15,23,42,0.1)] md:p-6">
       <div className="border-l-2 border-cyan-500/50 pl-3">
-        <h3 className="text-lg font-bold text-slate-50 md:text-xl">
+        <h3 className="text-lg font-bold text-slate-900 md:text-xl">
           {project.name}
         </h3>
       </div>
-      <p className="readable-text mt-3 text-sm leading-relaxed text-slate-300">
+      <p className="readable-text mt-3 text-sm leading-relaxed text-slate-600">
         {project.description}
       </p>
-      <div className="mt-4 space-y-2.5 rounded-xl bg-slate-800/60 py-2.5 pl-3 pr-3 text-sm text-slate-200">
+      <div className="mt-4 space-y-2.5 rounded-xl bg-slate-50 py-2.5 pl-3 pr-3 text-sm text-slate-700">
         <div className="flex items-center gap-2">
-          <KeyTechsIcon className="h-4 w-4 shrink-0 text-cyan-400" aria-hidden />
+          <KeyTechsIcon className="h-4 w-4 shrink-0 text-cyan-700" aria-hidden />
           <span>{project.keyTechs}</span>
         </div>
         <div className="flex items-center gap-2">
-          <MetricsIcon className="h-4 w-4 shrink-0 text-cyan-400" aria-hidden />
+          <MetricsIcon className="h-4 w-4 shrink-0 text-cyan-700" aria-hidden />
           <span>{project.metrics}</span>
         </div>
       </div>
@@ -320,7 +349,7 @@ function ProjectContentCard({
         <button
           type="button"
           onClick={onTechStackToggle}
-          className="inline-flex items-center rounded-xl border border-cyan-500/50 bg-slate-800/40 px-4 py-2.5 text-sm font-medium text-slate-200 transition-colors hover:border-cyan-400 hover:bg-cyan-500/10 hover:text-cyan-300"
+          className="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:border-cyan-500/50 hover:bg-cyan-500/10 hover:text-cyan-700"
         >
           {isTechStackOpen ? "Hide Tech Stack" : "Tech Stack"}
         </button>
@@ -335,11 +364,11 @@ function ProjectContentCard({
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <div className="mt-4 rounded-xl border border-cyan-500/20 bg-slate-800/80 px-4 py-3">
-              <p className="text-xs font-semibold uppercase tracking-wider text-cyan-400">
+            <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+              <p className="text-xs font-semibold uppercase tracking-wider text-cyan-700">
                 Full tech stack
               </p>
-              <p className="readable-text mt-2 text-sm text-slate-300">
+              <p className="readable-text mt-2 text-sm text-slate-600">
                 {project.techStack.join(" · ")}
               </p>
             </div>
@@ -350,16 +379,13 @@ function ProjectContentCard({
   );
 }
 
-const emptyStateCopy: Record<FilterId, { title: string; subtitle: string; icon: "sparkles" | "generic" }> = {
-  all: { title: "No projects yet", subtitle: "Check back soon.", icon: "generic" },
-  nlp: { title: "No projects in this category yet", subtitle: "Explore other categories.", icon: "generic" },
-  computerVision: { title: "No projects in this category yet", subtitle: "Explore other categories.", icon: "generic" },
-  generativeAI: {
-    title: "Generative AI — In the works",
-    subtitle: "Experiments with diffusion models, image generation, and LLM-based creative systems are in progress. This space will showcase them soon.",
-    icon: "sparkles",
-  },
-  deepLearning: { title: "No projects in this category yet", subtitle: "Explore other categories.", icon: "generic" },
+const emptyStateCopy: Record<FilterId, { title: string; subtitle: string }> = {
+  all: { title: "No projects yet", subtitle: "Check back soon." },
+  nlp: { title: "No projects in this category yet", subtitle: "Explore other categories." },
+  computerVision: { title: "No projects in this category yet", subtitle: "Explore other categories." },
+  generativeAI: { title: "No projects in this category yet", subtitle: "Explore other categories." },
+  deepLearning: { title: "No projects in this category yet", subtitle: "Explore other categories." },
+  edgeAI: { title: "No projects in this category yet", subtitle: "Explore other categories." },
 };
 
 function EmptyCategoryState({
@@ -370,59 +396,34 @@ function EmptyCategoryState({
   onViewAll: () => void;
 }) {
   const copy = emptyStateCopy[activeFilter];
-  const isGenerative = activeFilter === "generativeAI";
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="relative overflow-hidden rounded-2xl border border-cyan-500/20 bg-slate-900/65 px-6 py-12 text-center md:px-10 md:py-16"
+      className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white/90 px-6 py-12 text-center md:px-10 md:py-16"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent opacity-80" aria-hidden />
       <div className="relative">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/40 bg-cyan-500/10 px-3 py-1 text-xs font-medium uppercase tracking-wider text-cyan-300">
-          {isGenerative ? "Coming soon" : "Empty category"}
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/40 bg-cyan-500/10 px-3 py-1 text-xs font-medium uppercase tracking-wider text-cyan-700">
+          Empty category
         </span>
         <div className="mt-6 flex justify-center">
-          {copy.icon === "sparkles" ? (
-            <div style={{ perspective: "400px", transformStyle: "preserve-3d" }}>
-              <motion.div
-                className="relative rounded-2xl border border-cyan-500/30 bg-slate-800/80 p-5"
-                style={{
-                  transformStyle: "preserve-3d",
-                  boxShadow:
-                    "0 12px 40px rgba(6, 182, 212, 0.22), 0 0 0 1px rgba(6, 182, 212, 0.15), inset 0 1px 0 rgba(255,255,255,0.08)",
-                }}
-                animate={{
-                  rotateY: [-14, 14, -14],
-                  rotateX: [6, -4, 6],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                <Sparkles className="h-12 w-12 text-cyan-400" aria-hidden />
-              </motion.div>
-            </div>
-          ) : (
-            <div className="rounded-2xl border border-slate-600/50 bg-slate-800/60 p-5">
-              <Code2 className="h-12 w-12 text-slate-400" aria-hidden />
-            </div>
-          )}
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <Code2 className="h-12 w-12 text-slate-500" aria-hidden />
+          </div>
         </div>
-        <h2 className="mt-6 text-xl font-semibold text-slate-100 md:text-2xl">
+        <h2 className="mt-6 text-xl font-semibold text-slate-900 md:text-2xl">
           {copy.title}
         </h2>
-        <p className="readable-text mx-auto mt-3 max-w-md text-sm text-slate-400 md:text-base">
+        <p className="readable-text mx-auto mt-3 max-w-md text-sm text-slate-600 md:text-base">
           {copy.subtitle}
         </p>
         <button
           type="button"
           onClick={onViewAll}
-          className="mt-8 inline-flex items-center gap-2 rounded-lg border border-cyan-500/50 bg-transparent px-4 py-2.5 text-sm font-medium text-cyan-300 transition-colors hover:border-cyan-400 hover:bg-cyan-500/10"
+          className="mt-8 inline-flex items-center gap-2 rounded-lg border border-cyan-500/50 bg-white px-4 py-2.5 text-sm font-medium text-cyan-700 transition-colors hover:border-cyan-500 hover:bg-cyan-500/10"
         >
           View all projects
           <ArrowRight className="h-4 w-4" aria-hidden />
@@ -437,21 +438,17 @@ export default function ProjectsPage() {
   const [techStackOpenId, setTechStackOpenId] = useState<string | null>(null);
   const [caseStudyProjectId, setCaseStudyProjectId] = useState<string | null>(null);
 
-  const summarizer = projects[0];
-  const deepfake = projects[1];
-  const sentiment = projects[2];
-  const caseStudyProject = caseStudyProjectId ? projects.find((p) => p.id === caseStudyProjectId) : null;
+  const filteredProjects =
+    activeFilter === "all"
+      ? projects
+      : projects.filter((p) => p.categories.includes(activeFilter));
 
-  const isAllFilter = activeFilter === "all";
-  const showSummarizer = isAllFilter || activeFilter === "nlp";
-  const showDeepfake = isAllFilter || activeFilter === "computerVision";
-  const showSentiment = isAllFilter || activeFilter === "deepLearning";
-  const showRow2 = showDeepfake || isAllFilter;
-  const showRow3 = showSentiment || isAllFilter;
-  const hasAnyProjects = showSummarizer || showDeepfake || showSentiment;
+  const caseStudyProject = caseStudyProjectId
+    ? projects.find((p) => p.id === caseStudyProjectId)
+    : null;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-950/90 text-slate-100">
+    <div className="relative min-h-screen overflow-hidden bg-[#F4F7FB] text-slate-800">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-[0.05] [background-image:radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.07)_0%,transparent_50%)]" />
         <div className="absolute inset-0 opacity-[0.04] [background-image:linear-gradient(to_right,rgba(148,163,184,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.06)_1px,transparent_1px)] [background-size:48px_48px]" />
@@ -460,17 +457,20 @@ export default function ProjectsPage() {
         <div className="absolute bottom-1/4 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-teal-500/8 blur-3xl" />
       </div>
 
-      <header className="relative border-b border-slate-800/85 bg-slate-950/90 backdrop-blur-sm">
+      <header className="relative border-b border-slate-200 bg-white/80 backdrop-blur-sm">
         <div className="mx-auto max-w-6xl px-4 py-8 md:py-10">
-          <span className="inline-block rounded-full border border-cyan-500/35 bg-cyan-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-400">
+          <span className="inline-block rounded-full border border-cyan-500/35 bg-cyan-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-700">
             Portfolio
           </span>
-          <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-50 md:text-4xl">
-            Advanced AI &amp; <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">ML Portfolio</span>
+          <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
+            Advanced AI &amp;{" "}
+            <span className="bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
+              ML Portfolio
+            </span>
           </h1>
-          <p className="readable-text mt-3 max-w-2xl text-base text-slate-400">
-            Research-driven implementations in NLP, Computer Vision, and Generative AI.
-            Deep learning meets human-centric systems.
+          <p className="readable-text mt-3 max-w-2xl text-base text-slate-600">
+            Research-driven implementations in NLP, Computer Vision, Generative AI, and
+            edge/on-device systems—from local code review to Indic voice automation.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
             {filters.map((f) => (
@@ -481,7 +481,7 @@ export default function ProjectsPage() {
                 className={`rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
                   activeFilter === f.id
                     ? "bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 shadow-[0_4px_14px_rgba(6,182,212,0.35)]"
-                    : "border border-slate-600/90 bg-slate-800/50 text-slate-300 hover:border-cyan-500/40 hover:bg-slate-800/70 hover:text-cyan-300"
+                    : "border border-slate-300 bg-white text-slate-600 hover:border-cyan-500/40 hover:bg-cyan-50 hover:text-cyan-700"
                 }`}
               >
                 {f.label}
@@ -492,150 +492,53 @@ export default function ProjectsPage() {
       </header>
 
       <main className="relative mx-auto max-w-6xl px-4 py-10 md:py-14">
-        {/* Row 1: AI Text Summarizer - full width with image left, content right */}
-        {showSummarizer && (
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-10"
-          >
-            <div className="overflow-hidden rounded-3xl border border-cyan-500/30 bg-slate-900/75 shadow-[0_0_32px_rgba(6,182,212,0.06)] md:flex">
-              <ProjectImagePanel
-                tag={summarizer.tag}
-                imageSrc="/images/nlp-system.png"
-                gradient="bg-gradient-to-br from-pink-500/10 to-slate-900"
-              />
-              <div className="flex-1 p-5 md:p-6">
-                <ProjectContentCard
-                  project={summarizer}
-                  isTechStackOpen={techStackOpenId === summarizer.id}
-                  onTechStackToggle={() =>
-                    setTechStackOpenId((prev) =>
-                      prev === summarizer.id ? null : summarizer.id
-                    )
-                  }
-                  onCaseStudyClick={() => setCaseStudyProjectId(summarizer.id)}
-                />
-              </div>
-            </div>
-          </motion.section>
-        )}
-
-        {/* Row 2: Deepfake – when Computer Vision only: image + content; when All: content | image */}
-        {showRow2 && (
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-10"
-          >
-            {showDeepfake && !isAllFilter ? (
-              <div className="overflow-hidden rounded-3xl border border-cyan-500/40 bg-slate-900/70 shadow-[0_0_40px_rgba(6,182,212,0.08)] md:flex">
-                <ProjectImagePanel
-                  tag={deepfake.tag}
-                  imageSrc="/images/deepfake-detection.png"
-                  gradient="bg-gradient-to-br from-violet-500/10 to-slate-900"
-                />
-                <div className="flex-1 p-5 md:p-6">
-                  <ProjectContentCard
-                    project={deepfake}
-                    isTechStackOpen={techStackOpenId === deepfake.id}
-                    onTechStackToggle={() =>
-                      setTechStackOpenId((prev) =>
-                        prev === deepfake.id ? null : deepfake.id
-                      )
-                    }
-                    onCaseStudyClick={() => setCaseStudyProjectId(deepfake.id)}
-                  />
-                </div>
-              </div>
-            ) : (
-              <div className="grid gap-6 md:grid-cols-2">
-                {showDeepfake && (
-                  <div className="rounded-3xl border border-cyan-500/30 bg-slate-900/60 shadow-[0_0_24px_rgba(6,182,212,0.05)]">
-                    <ProjectContentCard
-                      project={deepfake}
-                      isTechStackOpen={techStackOpenId === deepfake.id}
-                      onTechStackToggle={() =>
-                        setTechStackOpenId((prev) =>
-                          prev === deepfake.id ? null : deepfake.id
-                        )
-                      }
-                      onCaseStudyClick={() => setCaseStudyProjectId(deepfake.id)}
+        {filteredProjects.length === 0 ? (
+          <EmptyCategoryState
+            activeFilter={activeFilter}
+            onViewAll={() => setActiveFilter("all")}
+          />
+        ) : (
+          <div className="space-y-10">
+            {filteredProjects.map((project, index) => {
+              const imageOnRight = index % 2 === 1;
+              return (
+                <motion.section
+                  key={project.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.05,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  <div
+                    className={`overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_4px_14px_rgba(15,23,42,0.06)] md:flex ${
+                      imageOnRight ? "md:flex-row-reverse" : ""
+                    }`}
+                  >
+                    <ProjectImagePanel
+                      tag={project.tag}
+                      imageSrc={project.imageSrc}
+                      gradient={project.gradient}
                     />
+                    <div className="flex-1 p-5 md:p-6">
+                      <ProjectContentCard
+                        project={project}
+                        isTechStackOpen={techStackOpenId === project.id}
+                        onTechStackToggle={() =>
+                          setTechStackOpenId((prev) =>
+                            prev === project.id ? null : project.id
+                          )
+                        }
+                        onCaseStudyClick={() => setCaseStudyProjectId(project.id)}
+                      />
+                    </div>
                   </div>
-                )}
-                {isAllFilter && (
-                  <ImagePlaceholderCard
-                    tag="COMPUTER VISION"
-                    gradient="bg-gradient-to-br from-violet-500/10 to-slate-900"
-                    backgroundImage="/images/deepfake-detection.png"
-                  />
-                )}
-              </div>
-            )}
-          </motion.section>
-        )}
-
-        {/* Row 3: Sentiment – when Deep Learning only: image + content; when All: image | content */}
-        {showRow3 && (
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-10"
-          >
-            {showSentiment && !isAllFilter ? (
-              <div className="overflow-hidden rounded-3xl border border-cyan-500/30 bg-slate-900/75 shadow-[0_0_32px_rgba(6,182,212,0.06)] md:flex">
-                <ProjectImagePanel
-                  tag={sentiment.tag}
-                  imageSrc="/images/conversational-ai.png"
-                  gradient="bg-gradient-to-br from-cyan-500/10 to-slate-900"
-                />
-                <div className="flex-1 p-5 md:p-6">
-                  <ProjectContentCard
-                    project={sentiment}
-                    isTechStackOpen={techStackOpenId === sentiment.id}
-                    onTechStackToggle={() =>
-                      setTechStackOpenId((prev) =>
-                        prev === sentiment.id ? null : sentiment.id
-                      )
-                    }
-                    onCaseStudyClick={() => setCaseStudyProjectId(sentiment.id)}
-                  />
-                </div>
-              </div>
-            ) : (
-              <div className="grid gap-6 md:grid-cols-2">
-                {isAllFilter && (
-                  <ImagePlaceholderCard
-                    tag="CONVERSATIONAL AI"
-                    gradient="bg-gradient-to-br from-cyan-500/10 to-slate-900"
-                    backgroundImage="/images/conversational-ai.png"
-                  />
-                )}
-                {showSentiment && (
-                  <div className="rounded-3xl border border-cyan-500/30 bg-slate-900/60 shadow-[0_0_24px_rgba(6,182,212,0.05)]">
-                    <ProjectContentCard
-                      project={sentiment}
-                      isTechStackOpen={techStackOpenId === sentiment.id}
-                      onTechStackToggle={() =>
-                        setTechStackOpenId((prev) =>
-                          prev === sentiment.id ? null : sentiment.id
-                        )
-                      }
-                      onCaseStudyClick={() => setCaseStudyProjectId(sentiment.id)}
-                    />
-                  </div>
-                )}
-              </div>
-            )}
-          </motion.section>
-        )}
-
-        {!hasAnyProjects && (
-          <EmptyCategoryState activeFilter={activeFilter} onViewAll={() => setActiveFilter("all")} />
+                </motion.section>
+              );
+            })}
+          </div>
         )}
       </main>
 

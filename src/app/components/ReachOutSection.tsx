@@ -31,21 +31,17 @@ type ReachOutContent = {
 function ContactCard({ icon3D: Icon3D, title, content, href }: ContactCardProps) {
   return (
     <a
-      className="block p-4 sm:p-6 rounded-[20px] bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/15 hover:border-[#008080]/50 hover:scale-102 transition-all duration-300 ease-out shadow-[0_4px_14px_rgba(31,60,136,0.12)]"
+      className="block rounded-[20px] border border-slate-200 bg-white/90 p-4 shadow-[0_4px_14px_rgba(15,23,42,0.06)] backdrop-blur-sm transition-all duration-300 ease-out hover:scale-102 hover:border-teal-500/40 hover:bg-white hover:shadow-[0_8px_24px_rgba(15,23,42,0.08)] sm:p-6"
       href={href}
-      style={{
-        background:
-          "linear-gradient(135deg, rgba(75,0,130,0.4) 0%, rgba(31,60,136,0.3) 100%)",
-      }}
     >
       <div className="flex flex-col">
-        <Icon3DWrapper className="mb-3 sm:mb-4 inline-flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl border border-cyan-500/30 bg-cyan-500/10">
-          <Icon3D className="w-6 h-6 sm:w-8 sm:h-8 text-cyan-400" />
+        <Icon3DWrapper className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-500/30 bg-cyan-500/10 sm:mb-4 sm:h-14 sm:w-14">
+          <Icon3D className="h-6 w-6 text-cyan-700 sm:h-8 sm:w-8" />
         </Icon3DWrapper>
-        <div className="text-white text-xs sm:text-sm font-semibold mb-2 leading-tight">
+        <div className="mb-2 text-xs font-semibold leading-tight text-slate-500 sm:text-sm">
           {title}
         </div>
-        <div className="text-white text-sm sm:text-base md:text-lg font-bold leading-tight break-words">
+        <div className="break-words text-sm font-bold leading-tight text-slate-900 sm:text-base md:text-lg">
           {content}
         </div>
       </div>
@@ -101,13 +97,13 @@ export default function ReachOutSection() {
   return (
     <section
       id="reach-out"
-      className="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 py-10 md:py-20"
+      className="bg-gradient-to-r from-[#F4F7FB] via-white to-[#F4F7FB] py-10 md:py-20"
     >
       <div className="mx-auto max-w-6xl px-4">
-        <h2 className="text-center text-2xl font-semibold tracking-tight text-slate-50 md:text-3xl">
+        <h2 className="text-center text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
           {content.title}
         </h2>
-        <p className="mt-3 text-center text-sm text-slate-300 md:text-base">
+        <p className="mt-3 text-center text-sm text-slate-600 md:text-base">
           {content.subtitle}
         </p>
         <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">

@@ -128,17 +128,17 @@ export default function ContactPage() {
 
   if (!content || loading) {
     return (
-      <div className="min-h-screen bg-slate-950/90 flex items-center justify-center">
+      <div className="min-h-screen bg-[#F4F7FB] flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <Loader2 className="w-12 h-12 text-cyan-400 animate-spin" />
-          <p className="text-lg text-slate-200 font-alice">Loading content...</p>
+          <Loader2 className="w-12 h-12 text-cyan-600 animate-spin" />
+          <p className="text-lg text-slate-600 font-alice">Loading content...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="holographic-bg relative min-h-screen bg-slate-950/90 text-slate-100">
+    <div className="holographic-bg relative min-h-screen bg-[#F4F7FB] text-slate-800">
       {/* 3D elements that move with cursor - contact page only */}
       <ContactPage3DBackground />
       {/* Full-height hero + contact block */}
@@ -152,10 +152,10 @@ export default function ContactPage() {
         </div>
 
         {/* Header */}
-        <div className="relative border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-sm">
+        <div className="relative border-b border-slate-200 bg-white/80 backdrop-blur-sm">
           <div className="mx-auto max-w-4xl px-4 py-10 md:py-14">
             <motion.h1
-              className="text-3xl font-semibold text-center text-slate-50 md:text-4xl lg:text-5xl"
+              className="text-3xl font-semibold text-center text-slate-900 md:text-4xl lg:text-5xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -163,7 +163,7 @@ export default function ContactPage() {
               {content.header.title}
             </motion.h1>
             <motion.p
-              className="readable-text mt-4 text-center text-base text-slate-300 md:text-lg max-w-2xl mx-auto"
+              className="readable-text mt-4 text-center text-base text-slate-600 md:text-lg max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
@@ -176,7 +176,7 @@ export default function ContactPage() {
         {/* Section label */}
         <div className="relative mx-auto w-full max-w-5xl px-4 pt-8">
           <motion.p
-            className="text-center text-sm font-medium uppercase tracking-widest text-cyan-400/90"
+            className="text-center text-sm font-medium uppercase tracking-widest text-teal-700"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.25, duration: 0.5 }}
@@ -217,14 +217,14 @@ export default function ContactPage() {
 
               const cardContent = (
                 <>
-                  <Icon3DWrapper className="h-14 w-14 rounded-2xl border border-cyan-500/30 bg-cyan-500/10 transition-colors group-hover:border-cyan-400/50 group-hover:bg-cyan-500/20">
-                    <Icon3D className="h-7 w-7 shrink-0 text-cyan-400" aria-hidden />
+                  <Icon3DWrapper className="h-14 w-14 rounded-2xl border border-cyan-500/30 bg-cyan-500/10 transition-colors group-hover:border-cyan-500/50 group-hover:bg-cyan-500/15">
+                    <Icon3D className="h-7 w-7 shrink-0 text-cyan-700" aria-hidden />
                   </Icon3DWrapper>
-                  <h3 className="mt-4 text-lg font-semibold text-slate-100">
+                  <h3 className="mt-4 text-lg font-semibold text-slate-900">
                     {item.title}
                   </h3>
                   {item.content && (
-                    <p className="mt-2 text-slate-300 md:text-lg">
+                    <p className="mt-2 text-slate-600 md:text-lg">
                       {item.content}
                     </p>
                   )}
@@ -245,7 +245,7 @@ export default function ContactPage() {
                             href={social.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-600 bg-slate-800/60 text-slate-300 transition-all hover:border-cyan-500/50 hover:bg-cyan-500/10 hover:text-cyan-400"
+                            className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 transition-all hover:border-cyan-500/50 hover:bg-cyan-500/10 hover:text-cyan-700"
                             aria-label={social.ariaLabel}
                             onClick={(e) => e.stopPropagation()}
                           >
@@ -256,7 +256,7 @@ export default function ContactPage() {
                     </div>
                   )}
                   {isLink && (item.icon === "Mail" || item.icon === "Phone") && (
-                    <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-cyan-400">
+                    <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-cyan-700">
                       Reach out
                       <ArrowRight className="h-4 w-4" aria-hidden />
                     </span>
@@ -265,14 +265,14 @@ export default function ContactPage() {
               );
 
               const sharedClasses =
-                "group relative flex min-h-[220px] flex-col rounded-2xl border border-slate-700/60 bg-slate-900/70 p-6 shadow-lg transition-all duration-300 hover:border-cyan-500/40 hover:shadow-cyan-500/10 hover:shadow-xl md:min-h-[260px] md:p-7";
+                "group relative flex min-h-[220px] flex-col rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-lg transition-all duration-300 hover:border-cyan-500/40 hover:shadow-cyan-500/10 hover:shadow-xl md:min-h-[260px] md:p-7";
 
               if (href && (item.icon === "Mail" || item.icon === "Phone")) {
                 return (
                   <a
                     key={index}
                     href={href}
-                    className={`${sharedClasses} focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-950`}
+                    className={`${sharedClasses} focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-white`}
                   >
                     {cardContent}
                   </a>
@@ -298,18 +298,18 @@ export default function ContactPage() {
             <div className="absolute -inset-px rounded-3xl bg-gradient-to-b from-cyan-500/30 via-teal-500/20 to-cyan-500/30 opacity-80 blur-sm" aria-hidden />
             <div className="absolute -inset-px rounded-3xl bg-gradient-to-br from-cyan-500/40 via-transparent to-teal-500/40 opacity-60" aria-hidden />
 
-            <div className="relative overflow-hidden rounded-3xl border border-cyan-500/40 bg-slate-900/90 p-6 shadow-[0_0_40px_rgba(6,182,212,0.15),0_25px_50px_-12px_rgba(0,0,0,0.5)] md:p-10">
+            <div className="relative overflow-hidden rounded-3xl border border-cyan-500/30 bg-white p-6 shadow-[0_0_40px_rgba(6,182,212,0.1),0_25px_50px_-12px_rgba(15,23,42,0.08)] md:p-10">
               {/* Top accent strip */}
-              <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-90" aria-hidden />
+              <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-90" aria-hidden />
 
               <div className="text-center">
-                <span className="inline-block rounded-full border border-cyan-500/50 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-400">
+                <span className="inline-block rounded-full border border-cyan-500/40 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-700">
                   Get in touch
                 </span>
-                <h2 className="mt-4 text-2xl font-bold text-slate-50 md:text-3xl">
+                <h2 className="mt-4 text-2xl font-bold text-slate-900 md:text-3xl">
                   Send an enquiry
                 </h2>
-                <p className="mt-2 text-sm text-slate-400 md:text-base">
+                <p className="mt-2 text-sm text-slate-600 md:text-base">
                   Fill in your details and we&apos;ll get back to you soon.
                 </p>
               </div>
@@ -321,8 +321,8 @@ export default function ContactPage() {
                 aria-label="Send an enquiry"
               >
                 <div>
-                  <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-slate-300">
-                    Name <span className="text-cyan-400" aria-hidden>*</span>
+                  <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-slate-700">
+                    Name <span className="text-cyan-700" aria-hidden>*</span>
                   </label>
                   <input
                     id="contact-name"
@@ -333,12 +333,12 @@ export default function ContactPage() {
                     required
                     autoComplete="name"
                     placeholder="Your name"
-                    className="w-full rounded-xl border border-slate-600 bg-slate-800/90 px-4 py-3.5 text-slate-100 placeholder:text-slate-500 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus-visible:ring-cyan-400"
+                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-slate-800 placeholder:text-slate-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus-visible:ring-cyan-400"
                   />
                 </div>
                 <div>
-                  <label htmlFor="contact-phone" className="mb-2 block text-sm font-medium text-slate-300">
-                    Contact number <span className="text-cyan-400" aria-hidden>*</span>
+                  <label htmlFor="contact-phone" className="mb-2 block text-sm font-medium text-slate-700">
+                    Contact number <span className="text-cyan-700" aria-hidden>*</span>
                   </label>
                   <input
                     id="contact-phone"
@@ -349,12 +349,12 @@ export default function ContactPage() {
                     required
                     autoComplete="tel"
                     placeholder="Your phone number"
-                    className="w-full rounded-xl border border-slate-600 bg-slate-800/90 px-4 py-3.5 text-slate-100 placeholder:text-slate-500 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus-visible:ring-cyan-400"
+                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-slate-800 placeholder:text-slate-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus-visible:ring-cyan-400"
                   />
                 </div>
                 <div>
-                  <label htmlFor="contact-email" className="mb-2 block text-sm font-medium text-slate-300">
-                    Email <span className="text-cyan-400" aria-hidden>*</span>
+                  <label htmlFor="contact-email" className="mb-2 block text-sm font-medium text-slate-700">
+                    Email <span className="text-cyan-700" aria-hidden>*</span>
                   </label>
                   <input
                     id="contact-email"
@@ -365,11 +365,11 @@ export default function ContactPage() {
                     required
                     autoComplete="email"
                     placeholder="your@email.com"
-                    className="w-full rounded-xl border border-slate-600 bg-slate-800/90 px-4 py-3.5 text-slate-100 placeholder:text-slate-500 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus-visible:ring-cyan-400"
+                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-slate-800 placeholder:text-slate-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus-visible:ring-cyan-400"
                   />
                 </div>
                 <div>
-                  <label htmlFor="contact-comments" className="mb-2 block text-sm font-medium text-slate-300">
+                  <label htmlFor="contact-comments" className="mb-2 block text-sm font-medium text-slate-700">
                     Your message
                   </label>
                   <textarea
@@ -380,14 +380,14 @@ export default function ContactPage() {
                     onChange={handleChange}
                     autoComplete="off"
                     placeholder="Share a bit about what you’d like to discuss…"
-                    className="w-full rounded-xl border border-slate-600 bg-slate-800/90 px-4 py-3.5 text-sm text-slate-100 placeholder:text-slate-500 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus-visible:ring-cyan-400"
+                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-sm text-slate-800 placeholder:text-slate-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus-visible:ring-cyan-400"
                   />
                 </div>
                 <div className="pt-3">
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 py-4 px-6 font-bold text-slate-950 shadow-[0_4px_20px_rgba(6,182,212,0.4)] transition-all hover:from-cyan-400 hover:to-teal-400 hover:shadow-[0_6px_28px_rgba(6,182,212,0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:shadow-[0_4px_20px_rgba(6,182,212,0.4)]"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 py-4 px-6 font-bold text-slate-950 shadow-[0_4px_20px_rgba(6,182,212,0.4)] transition-all hover:from-cyan-400 hover:to-teal-400 hover:shadow-[0_6px_28px_rgba(6,182,212,0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:shadow-[0_4px_20px_rgba(6,182,212,0.4)]"
                   >
                     {submitting ? (
                       <>
