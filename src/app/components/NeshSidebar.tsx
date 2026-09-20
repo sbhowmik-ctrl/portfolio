@@ -12,7 +12,7 @@ const LIME = "#E8FF47";
 type Props = {
   wordmark: string;
   description: string;
-  stats: { value: string; label: string }[];
+  focus?: string[];
   email: string;
   linkedinUrl: string;
   githubUrl: string;
@@ -41,7 +41,7 @@ function NavSlot({
 export default function NeshSidebar({
   wordmark,
   description,
-  stats,
+  focus = ["Retrieval", "On-device", "Cloud"],
   email,
   linkedinUrl,
   githubUrl,
@@ -98,31 +98,15 @@ export default function NeshSidebar({
         <p className="mt-3 text-[11px] leading-relaxed text-neutral-600">{description}</p>
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
-        {stats.map((s, i) => (
-          <div key={s.label} className="rounded-2xl bg-[#efece3] p-3">
-            {i === 0 ? (
-              <span
-                className="mb-1 inline-flex h-6 w-6 items-center justify-center rounded-md text-[10px] font-black text-neutral-950"
-                style={{ backgroundColor: LIME }}
-              >
-                AI
-              </span>
-            ) : (
-              <span className="mb-1 block text-lg font-black" style={{ color: LIME }}>
-                {s.value}
-              </span>
-            )}
-            {i === 0 ? (
-              <p className="font-[family-name:var(--font-outfit)] text-xl font-bold leading-none text-neutral-950">
-                {s.value}
-              </p>
-            ) : null}
-            <p className="mt-1 text-[10px] font-semibold uppercase leading-snug tracking-wide text-neutral-600">
-              {s.label}
-            </p>
-          </div>
-        ))}
+      <div className="rounded-2xl bg-[#efece3] p-3">
+        <ul className="space-y-2">
+          {focus.map((item) => (
+            <li key={item} className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rotate-45" style={{ backgroundColor: LIME }} aria-hidden />
+              <span className="text-[11px] font-semibold tracking-wide text-neutral-800">{item}</span>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <nav className="flex flex-col gap-1.5" aria-label="Sections">

@@ -19,7 +19,13 @@ const a2uiTheme = {
   },
 };
 
+const SHOW_CHATBOT = false;
+
 export default function A2UIChatProvider({ children }: { children: React.ReactNode }) {
+  if (!SHOW_CHATBOT) {
+    return <>{children}</>;
+  }
+
   return (
     <CopilotKit
       runtimeUrl="/api/copilotkit"

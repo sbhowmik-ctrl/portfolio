@@ -21,8 +21,9 @@ type HeroContent = {
   description: string;
   primaryCta: { label: string; href: string };
   secondaryCta: { label: string; href: string };
-  stats: { value: string; label: string }[];
   traits: string[];
+  focus?: string[];
+  now?: { kicker: string; label: string };
   wordmark?: string;
   portrait?: string;
 };
@@ -115,7 +116,7 @@ export default function NeshHero({
   const reduce = useReducedMotion();
   const [assembled, setAssembled] = useState(false);
   const wordmark = content.wordmark ?? "SANRADHYA";
-  const portrait = content.portrait ?? "/images/sanradhya-portrait-1.png";
+  const portrait = content.portrait ?? "/images/sanradhya-portrait-1-removebg-preview.png";
 
   useEffect(() => {
     if (reduce) {
@@ -150,9 +151,9 @@ export default function NeshHero({
     rawY.set(((e.clientY - rect.top) / rect.height - 0.5) * 2 * 14);
   };
 
-  const projects = content.stats[0] ?? { value: "6+", label: "Projects" };
-  const years = content.stats[1] ?? { value: "4+", label: "Years of experience" };
   const title = content.titleLines.join(" ");
+  const focus = content.focus?.length ? content.focus : ["Retrieval", "On-device", "Cloud"];
+  const now = content.now ?? { kicker: "Now", label: "Private AI systems" };
 
   return (
     <section
@@ -166,11 +167,24 @@ export default function NeshHero({
       className="relative h-[100svh] min-h-[640px] w-full overflow-x-hidden"
       style={{ backgroundColor: BEIGE }}
     >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          backgroundImage: [
+            "linear-gradient(to right, rgba(10,10,10,0.16) 1px, transparent 1px)",
+            "linear-gradient(to bottom, rgba(10,10,10,0.16) 1px, transparent 1px)",
+            "linear-gradient(to right, rgba(10,10,10,0.07) 1px, transparent 1px)",
+            "linear-gradient(to bottom, rgba(10,10,10,0.07) 1px, transparent 1px)",
+          ].join(", "),
+          backgroundSize: "112px 112px, 112px 112px, 28px 28px, 28px 28px",
+        }}
+      />
       <motion.div style={{ opacity: fadeOut }} className="absolute inset-0 overflow-hidden">
         {/* Wordmark */}
         <motion.div
           style={{ y: wordY, scale: wordScale }}
-          className="pointer-events-none absolute inset-x-0 top-[max(1.25rem,5%)] z-[1] flex justify-center px-4 md:top-[max(1.5rem,4.5%)]"
+          className="pointer-events-none absolute inset-x-0 top-[max(1.25rem,5%)] z-[3] flex justify-center px-4 md:top-[max(1.5rem,4.5%)]"
           aria-hidden
         >
           <motion.span
@@ -191,7 +205,7 @@ export default function NeshHero({
                 animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                 transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
                 style={{ y: portraitY }}
-                className="absolute inset-x-0 bottom-0 z-[2] mx-auto flex h-[82%] max-w-[560px] items-end justify-center"
+                className="absolute inset-x-0 bottom-0 z-[2] mx-auto flex h-[78%] max-w-[620px] items-end justify-center"
               >
                 <div className="relative h-full w-full">
                   <Image
@@ -199,8 +213,8 @@ export default function NeshHero({
                     alt="Sanradhya Bhowmik"
                     fill
                     priority
-                    sizes="560px"
-                    className="object-contain object-bottom [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_70%,transparent_100%)]"
+                    sizes="620px"
+                    className="object-contain object-bottom [mask-image:linear-gradient(to_bottom,transparent_0%,black_12%,black_72%,transparent_100%)]"
                   />
                 </div>
               </motion.div>
@@ -211,23 +225,15 @@ export default function NeshHero({
                 transition={{ delay: 0.45, duration: 0.7 }}
                 className="absolute left-[4%] top-[18%] z-[5] hidden sm:block md:left-[8%] lg:left-[12%]"
               >
-                <GlassCard mouseX={mouseX} mouseY={mouseY} factor={1.2} reduce={!!reduce} className="px-5 py-4">
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="flex h-9 w-9 items-center justify-center rounded-lg text-sm font-black text-neutral-950"
-                      style={{ backgroundColor: LIME }}
-                    >
-                      AI
-                    </span>
-                    <div>
-                      <p className="font-[family-name:var(--font-outfit)] text-3xl font-bold leading-none text-neutral-950">
-                        {projects.value}
-                      </p>
-                      <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-neutral-800">
-                        {projects.label}
-                      </p>
-                    </div>
-                  </div>
+                <GlassCard mouseX={mouseX} mouseY={mouseY} factor={1.1} reduce={!!reduce} className="px-4 py-5">
+                  <ul className="space-y-2.5">
+                    {focus.map((item) => (
+                      <li key={item} className="flex items-center gap-2.5">
+                        <span className="h-2 w-2 rotate-45" style={{ backgroundColor: LIME }} aria-hidden />
+                        <span className="text-xs font-semibold tracking-wide text-neutral-950">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </GlassCard>
               </motion.div>
 
@@ -245,11 +251,11 @@ export default function NeshHero({
                   reduce={!!reduce}
                   className="px-5 py-4"
                 >
-                  <p className="font-[family-name:var(--font-outfit)] text-3xl font-bold leading-none" style={{ color: LIME }}>
-                    {years.value}
+                  <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-neutral-800">
+                    {now.kicker}
                   </p>
-                  <p className="mt-1 max-w-[7rem] text-[11px] font-semibold uppercase leading-snug tracking-wider text-white drop-shadow">
-                    {years.label}
+                  <p className="mt-1.5 max-w-[8.5rem] font-[family-name:var(--font-outfit)] text-lg font-bold leading-tight text-neutral-950">
+                    {now.label}
                   </p>
                 </GlassCard>
               </motion.div>
@@ -330,7 +336,7 @@ export default function NeshHero({
         </AnimatePresence>
       </motion.div>
 
-      {/* Side links sit in the top corners so they miss the floating stats cards. */}
+      {/* Side links sit in the top corners so they miss the floating cards. */}
       <nav
         className="absolute left-0 top-[48%] z-[20] hidden w-auto -translate-y-1/2 flex-col items-start pl-5 lg:flex xl:pl-8"
         aria-label="Primary sections"

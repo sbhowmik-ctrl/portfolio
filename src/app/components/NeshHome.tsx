@@ -18,8 +18,9 @@ export type HomeContent = {
     description: string;
     primaryCta: { label: string; href: string };
     secondaryCta: { label: string; href: string };
-    stats: { value: string; label: string }[];
     traits: string[];
+    focus?: string[];
+    now?: { kicker: string; label: string };
     wordmark?: string;
     portrait?: string;
   };
@@ -152,11 +153,7 @@ function Capabilities({ content }: { content: HomeContent["capabilities"] }) {
 }
 
 function Services({ content }: { content: HomeContent["services"] }) {
-  const defaultIndex = Math.max(
-    0,
-    content.plans.findIndex((p) => p.featured)
-  );
-  const [active, setActive] = useState(defaultIndex);
+  const [active, setActive] = useState(0);
   const plan = content.plans[active] ?? content.plans[0];
   const reduce = useReducedMotion();
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -461,7 +458,7 @@ export default function NeshHome({
               <NeshSidebar
                 wordmark={wordmark}
                 description={content.hero.description}
-                stats={content.hero.stats}
+                focus={content.hero.focus}
                 email={contact.email}
                 linkedinUrl={contact.linkedinUrl}
                 githubUrl={contact.githubUrl}

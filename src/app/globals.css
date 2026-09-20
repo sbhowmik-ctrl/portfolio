@@ -553,16 +553,21 @@ body {
   box-shadow: 0 12px 28px rgba(10, 10, 10, 0.22);
 }
 
+/* Size the overlay itself. Width/height:auto + align-end shrinks it to the
+   header, which collapses the textarea into a one-letter column. */
 .portfolio-a2ui-chat [data-copilotkit]:has([data-copilot-popup]) {
+  position: fixed !important;
   inset: auto !important;
   top: auto !important;
   right: 1rem !important;
   bottom: 5.5rem !important;
   left: auto !important;
-  width: auto !important;
-  height: auto !important;
-  max-width: calc(100% - 1.5rem);
-  align-items: flex-end !important;
+  width: min(360px, calc(100vw - 1.5rem)) !important;
+  height: min(460px, calc(100dvh - 7.5rem)) !important;
+  max-width: min(360px, calc(100vw - 1.5rem)) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
 }
 
 .portfolio-a2ui-chat [data-copilot-popup],
@@ -587,10 +592,12 @@ body {
 }
 
 .portfolio-a2ui-chat [data-copilot-popup] {
-  width: min(360px, calc(100% - 1.5rem)) !important;
-  height: min(460px, calc(100dvh - 7.5rem)) !important;
-  max-width: min(360px, calc(100% - 1.5rem)) !important;
-  max-height: min(460px, calc(100dvh - 7.5rem)) !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
   overflow: hidden !important;
   border-radius: 1.75rem !important;
   border: 1px solid rgba(10, 10, 10, 0.1) !important;
@@ -640,9 +647,18 @@ body {
 }
 
 .portfolio-a2ui-chat [data-popup-chat],
+.portfolio-a2ui-chat [data-testid="copilot-chat"],
 .portfolio-a2ui-chat [data-copilot-popup] .copilotKitMessages,
 .portfolio-a2ui-chat [data-copilot-popup] .copilotKitChat {
   background: #ded8c9 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+}
+
+.portfolio-a2ui-chat [data-popup-chat] {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 .portfolio-a2ui-chat [data-copilot-popup] .cpk\:pt-10 {
@@ -699,11 +715,20 @@ body {
 .portfolio-a2ui-chat [data-copilot-popup] .copilotKitInput {
   border: 1px solid rgba(10, 10, 10, 0.1) !important;
   box-shadow: none !important;
-  border-radius: 999px !important;
+  border-radius: 1.35rem !important;
+  max-height: 9rem;
+  contain: none !important;
 }
 
-.portfolio-a2ui-chat [data-copilot-popup] .cpk\:min-h-\[50px\] {
-  min-height: 0 !important;
+.portfolio-a2ui-chat [data-copilot-popup] [data-testid="copilot-chat-input"] {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.portfolio-a2ui-chat [data-copilot-popup] [data-testid="copilot-chat-input"] > div {
+  width: 100% !important;
+  min-width: 0 !important;
+  grid-template-columns: auto minmax(0, 1fr) auto !important;
 }
 
 .portfolio-a2ui-chat [data-copilot-popup] .copilotKitInput > div {
@@ -715,11 +740,20 @@ body {
   font-size: 0.8rem !important;
   background: transparent !important;
   color: #0a0a0a !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-height: 5.5rem !important;
+  height: auto !important;
+  white-space: pre-wrap !important;
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
+  writing-mode: horizontal-tb !important;
 }
 
 .portfolio-a2ui-chat [data-copilot-popup] textarea::placeholder,
 .portfolio-a2ui-chat [data-copilot-popup] input::placeholder {
   color: #6f6f6f !important;
+  white-space: nowrap !important;
 }
 
 .portfolio-a2ui-chat [data-copilot-popup] [data-testid="copilot-send-button"] {

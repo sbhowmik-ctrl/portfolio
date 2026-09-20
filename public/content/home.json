@@ -6,12 +6,10 @@
     "primaryCta": { "label": "Book a Call", "href": "/contact" },
     "secondaryCta": { "label": "About Me", "href": "#journey" },
     "wordmark": "SANRADHYA",
-    "portrait": "/images/sanradhya-portrait-1.png",
-    "stats": [
-      { "value": "6+", "label": "Projects" },
-      { "value": "4+", "label": "Years of experience" }
-    ],
-    "traits": ["Creative", "Reliable", "Strategist", "Builder", "Efficient"]
+    "portrait": "/images/sanradhya-portrait-1-removebg-preview.png",
+    "traits": ["Creative", "Reliable", "Strategist", "Builder", "Efficient"],
+    "focus": ["Retrieval", "On-device", "Cloud"],
+    "now": { "kicker": "Now", "label": "Private AI systems" }
   },
   "journey": {
     "kicker": "Start small grow big",
